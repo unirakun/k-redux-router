@@ -1,0 +1,13 @@
+{
+  "name": "k-redux-router",
+  "version": "0.1.0",
+  "description": "Redux router - KISS",
+  "author": "Fabien JUIF <fabien.juif@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "core",
+    "connectors/react/*",
+    "example"
+  ]
+}

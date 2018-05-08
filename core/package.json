@@ -1,0 +1,12 @@
+{
+  "name": "@k-redux-router/core",
+  "version": "0.1.0",
+  "description": "Redux router - KISS",
+  "main": "src/index.js",
+  "author": "Fabien JUIF <fabien.juif@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "path-to-regexp": "^2.2.1"
+  }
+}
