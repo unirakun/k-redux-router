@@ -17,7 +17,7 @@ const getFullHrefVersion = (routes) => {
           route,
           {
             href: url,
-            compiledHref: (url.includes(':') ? pathToRegexp.compile(href) : undefined),
+            compiledHref: (url.includes(':') ? pathToRegexp.compile(url) : undefined),
           },
         ))
 
@@ -29,6 +29,10 @@ const getFullHrefVersion = (routes) => {
 
   return fullVersion
 }
+
+
+// https://stackoverflow.com/questions/1714786/query-string-encoding-of-a-javascript-object
+const toQueryString = obj => Object.keys(obj).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(obj[k])}`).join('&')
 
 export default (routes, options = {}) => {
   // transform routes
@@ -68,13 +72,20 @@ export default (routes, options = {}) => {
     switch (type) {
       case '@@router/PUSH': {
         const { code, params } = payload
-        const { path, query } = (params || {})
 
         // find route
         const route = state.byCode[code]
 
         // update history API
-        if (route) history.pushState(undefined, undefined, route.href)
+        if (route) {
+          let { href, compiledHref } = route
+          let queryPart = ''
+
+          if (compiledHref) href = compiledHref(params.path)
+          if (params.query) queryPart = `?${toQueryString(params.query)}`
+
+          history.pushState(undefined, undefined, `${href}${queryPart}`)
+        }
 
         // TODO: if no route, find the closest `notFound` to push it in `result`
 
@@ -85,6 +96,7 @@ export default (routes, options = {}) => {
           {
             result: {
               found: true,
+              params,
               route,
             },
           },
