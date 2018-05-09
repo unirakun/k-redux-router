@@ -1,6 +1,6 @@
 import { keyValue } from 'k-redux-factory'
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
-import { middleware, reducer } from '@k-redux-router/core'
+import { reducer } from '@k-redux-router/core'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -34,7 +34,5 @@ export default createStore(
     })
   }),
   undefined,
-  composeEnhancers(
-    applyMiddleware(middleware),
-  ),
+  composeEnhancers(),
 )
