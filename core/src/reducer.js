@@ -116,10 +116,12 @@ export default (routes, options = {}) => {
           let { href } = route
           let queryPart = ''
 
-          if (href.compiled) href = href.compiled(params.path)
+          let toPush = href.base
+          if (href.compiled) toPush = href.compiled(params.path)
           if (params.query) queryPart = `?${toQueryString(params.query)}`
 
-          history.pushState(undefined, undefined, `${href}${queryPart}`)
+          console.log('url to push', `${toPush}${queryPart}`)
+          history.pushState(undefined, undefined, `${toPush}${queryPart}`)
         }
 
         // TODO: if no route, find the closest `notFound` to push it in `result`
@@ -152,6 +154,9 @@ export default (routes, options = {}) => {
   reducer.getPathParam = code => state => reducer.getPathParams(state)[code]
   reducer.getQueryParam = code => state => reducer.getQueryParams(state)[code]
   reducer.getParam = code => state => reducer.getPathParam(code)(state) || reducer.getQueryParam(code)(state)
+
+  // actions
+  reducer.push = (code, pathParams, queryParams) => ({ type: '@@router/PUSH', payload: { code, params: { path: pathParams, query: queryParams } } })
 
   return reducer
 }
