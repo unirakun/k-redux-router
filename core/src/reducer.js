@@ -47,7 +47,7 @@ const queryToObject = () => {
 
 export default (routes, options = {}) => {
   // get history implementation (default is window.history _this is history API_)
-  let { history } = options
+  let { history, getState } = options
   if (!history && window && window.history) history = window.history
   if (!history) throw new Error('[k-redux-router] no history implementation is given')
 
@@ -103,7 +103,7 @@ export default (routes, options = {}) => {
   // This avoid dispatch in dispatch
   // I can access history-api here
 
-  return (state = initState, { type, payload } = {}) => {
+  const reducer = (state = initState, { type, payload } = {}) => {
     switch (type) {
       case '@@router/PUSH': {
         const { code, params } = payload
@@ -140,4 +140,18 @@ export default (routes, options = {}) => {
       default: return state
     }
   }
+
+  // selectors
+  reducer.getResult = state => getState(state).result
+  reducer.getCode = state => reducer.getRoute(state).code
+  reducer.getRoute = state => reducer.getResult(state).route
+  reducer.isFound = state => reducer.getResult(state).found
+  reducer.getParams = state => reducer.getResult(state).params
+  reducer.getPathParams = state => reducer.getParams(state).path
+  reducer.getQueryParams = state => reducer.getParams(state).query
+  reducer.getPathParam = code => state => reducer.getPathParams(state)[code]
+  reducer.getQueryParam = code => state => reducer.getQueryParams(state)[code]
+  reducer.getParam = code => state => reducer.getPathParam(code)(state) || reducer.getQueryParam(code)(state)
+
+  return reducer
 }

@@ -25,14 +25,21 @@ const routes = {
   },
 }
 
-export default createStore(
+const router = reducer(routes, { getState: state => state.ui.router })
+
+const store = createStore(
   combineReducers({
     dummy: () => true,
     otherReducer: keyValue({ name: 'otherReducer', key: 'id' }),
     ui: combineReducers({
-      router: reducer(routes),
+      router,
     })
   }),
   undefined,
   composeEnhancers(),
 )
+
+window.debug_router = router
+window.debug_store = store
+
+export default store
