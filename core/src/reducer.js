@@ -11,42 +11,6 @@ export default (routes, options) => {
   const reducer = (state = initState, { type, payload } = {}) => {
     switch (type) {
       case '@@router/ROUTE_FOUND': return Object.assign({}, state, { result: payload })
-
-      /* TODO: move this to middleware ? */
-      case '@@router/PUSH': {
-        const { code, params } = payload
-
-        // find route
-        const route = state.routes.map[code]
-
-        // update history API
-        if (route) {
-          let { href } = route
-          let queryPart = ''
-
-          let toPush = href.base
-          if (href.compiled) toPush = href.compiled(params.path)
-          if (params.query) queryPart = `?${toQueryString(params.query)}`
-
-          console.log('url to push', `${toPush}${queryPart}`)
-          history.pushState(undefined, undefined, `${toPush}${queryPart}`)
-        }
-
-        // TODO: if no route, find the closest `notFound` to push it in `result`
-
-        // update state
-        return Object.assign(
-          {},
-          state,
-          {
-            result: {
-              found: true,
-              route,
-              params,
-            },
-          },
-        )
-      }
       default: return state
     }
   }

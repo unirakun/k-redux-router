@@ -9,6 +9,8 @@ const queryToObject = () => {
   return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
 }
 
+const routeFound = result => ({ type: '@@router/ROUTE_FOUND', payload: Object.assign({ found: true }, result) })
+
 const dispatchResultFactory = reducer => store => {
   let result = { found: false }
   if (window && window.location && window.location.pathname) {
@@ -28,23 +30,54 @@ const dispatchResultFactory = reducer => store => {
         {},
       )
 
-    store.dispatch({
-      type: '@@router/ROUTE_FOUND',
-      payload: {
-        found: true,
-        route,
-        params: {
-          path: pathParams,
-          query: queryToObject(),
-        },
+    store.dispatch(routeFound({
+      route,
+      params: {
+        path: pathParams,
+        query: queryToObject(),
       },
-    })
+    }))
+  }
+}
+
+const mapActionFactory = reducer => store => (action) => {
+  const { type, payload } = action
+
+  switch (type) {
+    case '@@router/PUSH': {
+      const { code, params } = payload
+
+      // find route
+      const route = reducer.getState(store.getState()).routes.map[code]
+
+      // update history API
+      if (route) {
+        let { href } = route
+        let queryPart = ''
+
+        let toPush = href.base
+        if (href.compiled) toPush = href.compiled(params.path)
+        if (params.query) queryPart = `?${toQueryString(params.query)}`
+
+        history.pushState(undefined, undefined, `${toPush}${queryPart}`)
+      }
+
+      // TODO: if no route, find the closest `notFound` to push it in `result`
+
+      // update state
+      return routeFound({
+        route,
+        params,
+      })
+    }
+    default: return action
   }
 }
 
 export default (routes, options, reducer) => {
   let initialized = false
   const dispatchResult = dispatchResultFactory(reducer)
+  const mapAction = mapActionFactory(reducer)
 
   // redux middleware
   return store => next => action => {
@@ -62,19 +95,21 @@ export default (routes, options, reducer) => {
       window.onpopstate = () => { dispatchResult(store) }
     }
 
-    console.log('avant', store.getState())
+    // these action are not catched by the middleware and are used as it is
+    if (
+      // action without type
+      !action.type
+      // action that are not related to this lib
+      || !action.type.startsWith('@@router/')
+      // `@@router/ROUTE_FOUND` to avoid infinite loop
+      || action.type === '@@router/ROUTE_FOUND'
+    ) return next(action)
 
-    let res
-    if (action.type === 'BLA') store.dispatch({ type: 'test-avant' })
+    // dispatch base action so other lib and reducer can plug to it
+    const res = next(action)
 
-    // exemple replacing an action per an other
-    if (action.type === 'youpi') res = next({ type: 'something else' })
-    else res = next(action)
-
-    console.log('apres', store.getState())
-
-    if (action.type === 'BLA') store.dispatch({ type: 'test-apres' })
-    console.log({ res })
+    // router actions can found a new route
+    store.dispatch(mapAction(store)(action))
 
     return res
   }
