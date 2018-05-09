@@ -16,8 +16,12 @@ const getFullHrefVersion = (routes) => {
           {},
           route,
           {
-            href: url,
-            compiledHref: (url.includes(':') ? pathToRegexp.compile(url) : undefined),
+            href: {
+              base: url,
+              compiled: (url.includes(':') ? pathToRegexp.compile(url) : undefined),
+              regexp: pathToRegexp(url),
+              parsed: pathToRegexp.parse(url),
+            },
           },
         ))
 
@@ -30,34 +34,65 @@ const getFullHrefVersion = (routes) => {
   return fullVersion
 }
 
-
 // https://stackoverflow.com/questions/1714786/query-string-encoding-of-a-javascript-object
 const toQueryString = obj => Object.keys(obj).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(obj[k])}`).join('&')
 
-export default (routes, options = {}) => {
-  // transform routes
-  const fullHrefVersion = getFullHrefVersion(routes)
-  // console.log({ fullHrefVersion })
-  // const routesMap = getRoutesMap(fullHrefVersion)
+// https://stackoverflow.com/questions/8648892/convert-url-parameters-to-a-javascript-object
+const queryToObject = () => {
+  if (location.search.length < 2) return {}
 
+  const search = location.search.substring(1)
+  return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
+}
+
+export default (routes, options = {}) => {
   // get history implementation (default is window.history _this is history API_)
   let { history } = options
   if (!history && window && window.history) history = window.history
-  if (!history) throw new Error('[k-redux-router] No history implementation is given')
+  if (!history) throw new Error('[k-redux-router] no history implementation is given')
 
-  const initState = {
-    byHref: fullHrefVersion.reduce(
-      (acc, curr) => Object.assign({}, acc, { [curr.href]: curr }),
-      {},
-    ),
-    byCode: fullHrefVersion.reduce(
-      (acc, curr) => Object.assign({}, acc, { [curr.code]: curr }),
-      {},
-    ),
-    result: undefined,
+  // transform route
+  const innerRoutes = { array: getFullHrefVersion(routes) }
+  innerRoutes.map = innerRoutes.array.reduce(
+    (acc, curr) => Object.assign({}, acc, { [curr.code]: curr }),
+    {},
+  )
+
+  // first route is the result
+  let result = { found: false }
+  if (window && window.location && window.location.pathname) {
+    // find route (& path params)
+    let pathParams
+    const route = innerRoutes.array.find((route) => {
+      pathParams = route.href.regexp.exec(window.location.pathname)
+      return pathParams
+    })
+
+    // attach names to path params
+    pathParams = route.href.parsed
+      .map(part => part.name)
+      .filter(Boolean)
+      .reduce(
+        (acc, curr, index) => Object.assign({ [curr]: pathParams[index + 1] }, acc),
+        {},
+      )
+
+    result = {
+      found: true,
+      params: { path: pathParams, query: queryToObject() },
+      route,
+    }
   }
 
-  console.log({ initState })
+  // init redux state
+  const initState = Object.assign(
+    {},
+    {
+      routes: innerRoutes,
+      result,
+    }
+  )
+
 
   // init reducer
   // const reducer = keyValue({ name: 'router', path: 'ui', key: 'code' })
@@ -74,14 +109,14 @@ export default (routes, options = {}) => {
         const { code, params } = payload
 
         // find route
-        const route = state.byCode[code]
+        const route = state.routes.map[code]
 
         // update history API
         if (route) {
-          let { href, compiledHref } = route
+          let { href } = route
           let queryPart = ''
 
-          if (compiledHref) href = compiledHref(params.path)
+          if (href.compiled) href = href.compiled(params.path)
           if (params.query) queryPart = `?${toQueryString(params.query)}`
 
           history.pushState(undefined, undefined, `${href}${queryPart}`)
