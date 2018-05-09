@@ -1,6 +1,6 @@
 import { keyValue } from 'k-redux-factory'
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
-import { reducer } from '@k-redux-router/core'
+import createRouter from '@k-redux-router/core'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -25,21 +25,23 @@ const routes = {
   },
 }
 
-const router = reducer(routes, { getState: state => state.ui.router })
+const router = createRouter(routes, { getState: state => state.ui.router })
 
 const store = createStore(
   combineReducers({
     dummy: () => true,
     otherReducer: keyValue({ name: 'otherReducer', key: 'id' }),
     ui: combineReducers({
-      router,
+      router: router.reducer,
     })
   }),
   undefined,
-  composeEnhancers(),
+  composeEnhancers(
+    applyMiddleware(router.middleware),
+  ),
 )
 
-window.debug_router = router
+window.debug_router = router.reducer
 window.debug_store = store
 
 export default store
