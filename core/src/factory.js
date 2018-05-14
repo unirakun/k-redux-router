@@ -6,32 +6,49 @@ import reducer from './reducer'
 const getFullHrefVersion = (routes) => {
   const fullVersion = []
 
-  const addRoute = (base, currentRoutes) => {
+  const addRoute = (base, parent) => Object
+    .entries(parent)
+    .filter(([href, route]) => (typeof route === 'object') && route.code)
+    .forEach(([href, route]) => {
+      const url = [base, href].join('').replace('//', '/')
 
-    Object
-      .entries(currentRoutes)
-      .filter(([href, route]) => (typeof route === 'object'))
-      .forEach(([href, route]) => {
-        const url = [base, href].join('').replace('//', '/')
-
-        fullVersion.push(Object.assign(
-          {},
-          route,
-          {
-            href: {
-              base: url,
-              compiled: (url.includes(':') ? pathToRegexp.compile(url) : undefined),
-              regexp: pathToRegexp(url),
-              parsed: pathToRegexp.parse(url),
-            },
+      // construct a new route
+      const newRoute = Object.assign(
+        {},
+        route,
+        {
+          parent: parent.code,
+          href: {
+            base: url,
+            compiled: (url.includes(':') ? pathToRegexp.compile(url) : undefined),
+            regexp: pathToRegexp(url),
+            parsed: pathToRegexp.parse(url),
           },
-        ))
+        },
+      )
 
-        addRoute(url, route)
-      })
-  }
+      // add the new full route
+      fullVersion.push(newRoute)
 
+      // add next (children) routes
+      addRoute(url, route)
+    })
+
+  // start the graph
   addRoute('', routes)
+
+  // update links
+  fullVersion.forEach((route) => {
+    // children
+    Object
+      .entries(route)
+      .forEach(([key, value]) => {
+        let newValue = value
+        if (typeof value === 'object' && value.code) newValue = value.code
+
+        route[key] = newValue
+      })
+  })
 
   return fullVersion
 }
