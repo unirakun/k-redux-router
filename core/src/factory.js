@@ -3,39 +3,53 @@ import middleware from './middleware'
 import reducer from './reducer'
 // import { keyValue } from 'k-redux-factory'
 
+const isRoute = route => typeof route === 'object' && route.code
+
 const getFullHrefVersion = (routes) => {
   const fullVersion = []
 
-  const addRoute = (base, parent) => Object
-    .entries(parent)
-    .filter(([href, route]) => (typeof route === 'object') && route.code)
-    .forEach(([href, route]) => {
-      const url = [base, href].join('').replace('//', '/')
-
-      // construct a new route
-      const newRoute = Object.assign(
+  const addRoute = (base, parent, route) => {
+    // parameters to copy from parent to route
+    let propertiesToCopy = {}
+    if (parent) {
+      propertiesToCopy = Object
+      .entries(parent)
+      .filter(([key, value]) => !isRoute(value)) // remove children routes
+      .reduce(
+        (acc, [key, value]) => Object.assign(acc, { [key]: value }),
         {},
+      )
+    }
+
+    // process href and add to array
+    let innerRoute = route
+    if (parent) {
+      innerRoute = Object.assign(
+        propertiesToCopy,
         route,
         {
-          parent: parent.code,
+          parent: parent && parent.code,
           href: {
-            base: url,
-            compiled: (url.includes(':') ? pathToRegexp.compile(url) : undefined),
-            regexp: pathToRegexp(url),
-            parsed: pathToRegexp.parse(url),
+            base,
+            compiled: (base.includes(':') ? pathToRegexp.compile(base) : undefined),
+            regexp: pathToRegexp(base),
+            parsed: pathToRegexp.parse(base),
           },
         },
       )
 
-      // add the new full route
-      fullVersion.push(newRoute)
+      fullVersion.push(innerRoute)
+    }
 
-      // add next (children) routes
-      addRoute(url, route)
-    })
+    // process children
+    Object
+      .entries(route)
+      .filter(([key, value]) => isRoute(value))
+      .forEach(([href, childRoute]) => addRoute([base, href].join('').replace('//', '/'), innerRoute, childRoute))
+  }
 
   // start the graph
-  addRoute('', routes)
+  addRoute('', undefined, routes)
 
   // update links
   fullVersion.forEach((route) => {
@@ -44,7 +58,7 @@ const getFullHrefVersion = (routes) => {
       .entries(route)
       .forEach(([key, value]) => {
         let newValue = value
-        if (typeof value === 'object' && value.code) newValue = value.code
+        if (isRoute(value)) newValue = value.code
 
         route[key] = newValue
       })
