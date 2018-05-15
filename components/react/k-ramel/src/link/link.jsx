@@ -3,17 +3,28 @@ import PropTypes from 'prop-types'
 
 const Link = (props) => {
   const {
-    className,
-    children,
     href,
     onClick,
+    ...params,
   } = props
+
+  const {
+    className,
+    children
+  } = params
+
+  // TODO: factorise code from middleware and from here
+  let queryPart = ''
+  let processedHref = href.base
+  if (href.compiled) processedHref = href.compiled(params.path)
+  if (params.query) queryPart = `?${toQueryString(params.query)}`
+  processedHref = `${processedHref}${queryPart}`
 
   return (
     <a
       className={className}
-      href={href}
-      onClick={onClick(href)}
+      href={processedHref}
+      onClick={onClick}
     >
       {children}
     </a>

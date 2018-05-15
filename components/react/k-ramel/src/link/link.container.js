@@ -1,4 +1,4 @@
-import { inject, listen } from '@k-ramel/react'
+import { inject } from '@k-ramel/react'
 import Component from './link'
 
 // copied from redux-little-router
@@ -10,14 +10,19 @@ const hasModifier = e => !!(e.shiftKey || e.altKey || e.metaKey || e.ctrlKey)
 const shouldIgnoreClick = e => hasModifier(e) || isNotLeftClick(e) || e.defaultPrevented
 
 // map store
-const mapStore = (store, { onClick }, { router }) => ({
-  routes: store.getState().router.routes,
-  onClick: href => (e) => {
+const mapStore = (store, { onClick, code, query, ...params }, { router }) => ({
+  href: store.getState().ui.router.routes.map[code],
+  onClick: (e) => {
+    // parent onClick callback
     if (onClick) onClick(e)
 
+    // from redux-little-router
     if (shouldIgnoreClick(e)) return
 
-    router.push(href)
+    // dispatch the push
+    store.dispatch(store.ui.router.push(code, params, query)) // TODO: path is hardcoded (state.ui)
+
+    // prevent default behaviour
     e.preventDefault()
   },
 })

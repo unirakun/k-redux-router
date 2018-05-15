@@ -39,16 +39,17 @@ const hoc = (code, options) => Component => class extends React.Component {
   toShow = () => {
     const state = this.context.store.getState()
 
-    if (!state.router || !state.router.result) {
+    // TODO: hardcoded path (state.ui)
+    if (!state.ui.router || !state.ui.router.result) {
       // eslint-disable-next-line no-console
       console.error('[k-redux-router] | There is no route found in `state.ui.router.result`')
       return
     }
 
     // Absolute mode, we are looking in top level only
-    let { result } = state.router
+    let currentRoute = state.ui.router.result.route
     if (options && options.absolute) {
-      const show = isRouteFound(code)(result)
+      const show = (code === currentRoute.code)
       if (show !== this.state.show) {
         this.setState(innerState => ({ ...innerState, show }))
       }
@@ -57,10 +58,10 @@ const hoc = (code, options) => Component => class extends React.Component {
     }
 
     // Either way we are looking top down the result tree
-    let show = isRouteFound(code)(result)
-    while (result && !show) {
-      result = result.parent
-      show = isRouteFound(code)(result)
+    let show = (code === currentRoute.code)
+    while (currentRoute && currentRoute.parent && !show) {
+      currentRoute = state.ui.router.routes.map[currentRoute.parent]
+      show = (code === currentRoute.code)
     }
 
     if (show !== this.state.show) {

@@ -7,7 +7,7 @@
   "private": true,
   "workspaces": [
     "core",
-    "connectors/react/*",
+    "components/react/*",
     "example"
   ]
 }
