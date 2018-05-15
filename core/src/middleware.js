@@ -70,7 +70,8 @@ const mapActionFactory = reducer => store => (action) => {
         params,
       })
     }
-    default: return action
+    // default is undefined so we avoid infinite loop
+    default: return undefined
   }
 }
 
@@ -81,35 +82,33 @@ export default (routes, options, reducer) => {
 
   // redux middleware
   return store => next => action => {
-    // init watchers (location/INIT)
-    // - this is done here because we can't dispatch when middlewares tree is initialized by redux
-    // - so we make sure that the dispatch are done when we are initialized
-    // - we hope to pass there at the beginin thanks to the `@@INIT` from redux :)
-    if (!initialized) {
-      initialized = true
-
-      // INIT
-      dispatchResult(store)
-
-      // watcher (location)
-      window.onpopstate = () => { dispatchResult(store) }
-    }
-
     // these action are not catched by the middleware and are used as it is
-    if (
-      // action without type
-      !action.type
-      // action that are not related to this lib
-      || !action.type.startsWith('@@router/')
-      // `@@router/ROUTE_FOUND` to avoid infinite loop
-      || action.type === '@@router/ROUTE_FOUND'
-    ) return next(action)
+    if (!action.type || !action.type.startsWith('@@router/')) return next(action)
 
     // dispatch base action so other lib and reducer can plug to it
     const res = next(action)
 
+    // init watchers (location/INIT)
+    // - this is done here because we can't dispatch when middlewares tree is initialized by redux
+    // - so we make sure that the dispatch are done when we are initialized
+    if (action.type === '@@router/INIT') {
+      dispatchResult(store) // TODO: move to store.dispatch pattern
+
+      if (initialized) {
+        console.warn('[k-redux-router] initialized twice')
+      } else {
+        initialized = true
+
+        // watcher (location)
+        window.onpopstate = () => { dispatchResult(store) } // TODO: move to store.dispatch pattern
+      }
+    }
+
+    if (!initialized && action.type !== '@@router/ROUTE_FOUND') console.warn('[k-redux-router] router should be initialized')
+
     // router actions can found a new route
-    store.dispatch(mapAction(store)(action))
+    const newAction = mapAction(store)(action)
+    if (newAction) store.dispatch(newAction)
 
     return res
   }

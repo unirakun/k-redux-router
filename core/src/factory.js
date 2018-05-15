@@ -1,7 +1,7 @@
 import pathToRegexp from 'path-to-regexp'
 import middleware from './middleware'
 import reducer from './reducer'
-// import { keyValue } from 'k-redux-factory'
+import init from './init'
 
 const isRoute = route => typeof route === 'object' && route.code
 
@@ -96,5 +96,6 @@ export default (routes, options = {}) => {
   return ({
     middleware: middleware(innerRoutes, options, reducerImpl),
     reducer: reducerImpl,
+    init,
   })
 }
