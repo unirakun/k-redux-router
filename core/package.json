@@ -2,11 +2,18 @@
   "name": "@k-redux-router/core",
   "version": "0.1.0",
   "description": "Redux router - KISS",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
   "author": "Fabien JUIF <fabien.juif@gmail.com>",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "build": "microbundle --external all"
+  },
   "dependencies": {
     "path-to-regexp": "^2.2.1"
+  },
+  "devDependencies": {
+    "microbundle": "^0.4.4"
   }
 }
