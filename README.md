@@ -2,7 +2,16 @@
 
 :construction: this is a WIP
 
-# TODO: summary
+## contents
+ - [Purpose](#purpose) TODO:
+ - [Why ?](#why) TODO:
+ - [Installation](#install)
+ - [API](#api)
+   * [Definition](#routes-definitions)
+   * [Redux actions](#actions)
+   * [Redux selectors](#selectors)
+   * [Create your store](#create-your-store)
+
 # TODO: bindings doc
 
 ## sizes
