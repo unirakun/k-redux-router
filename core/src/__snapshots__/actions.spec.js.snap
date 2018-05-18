@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`actions goBack should go to one step back 1`] = `
+Object {
+  "payload": 1,
+  "type": "@@router/GO_BACK",
+}
+`;
+
+exports[`actions goBack shuld go to 3 steps back 1`] = `
+Object {
+  "payload": 3,
+  "type": "@@router/GO_BACK",
+}
+`;
+
+exports[`actions goForward should go to 3 steps forward 1`] = `
+Object {
+  "payload": 3,
+  "type": "@@router/GO_FORWARD",
+}
+`;
+
+exports[`actions goForward should go to one step forward 1`] = `
+Object {
+  "payload": 1,
+  "type": "@@router/GO_FORWARD",
+}
+`;
+
+exports[`actions push should push the user route with no param 1`] = `
+Object {
+  "payload": Object {
+    "code": "user",
+    "params": Object {
+      "path": undefined,
+      "query": undefined,
+    },
+  },
+  "type": "@@router/PUSH",
+}
+`;
+
+exports[`actions push should push the user route with path and query params 1`] = `
+Object {
+  "payload": Object {
+    "code": "user",
+    "params": Object {
+      "path": Object {
+        "id": 3,
+      },
+      "query": Object {
+        "query": "param",
+        "token": "dzejfzeoif",
+      },
+    },
+  },
+  "type": "@@router/PUSH",
+}
+`;
+
+exports[`actions push should push the user route with path params 1`] = `
+Object {
+  "payload": Object {
+    "code": "user",
+    "params": Object {
+      "path": Object {
+        "id": 2,
+        "name": "Delphine",
+      },
+      "query": undefined,
+    },
+  },
+  "type": "@@router/PUSH",
+}
+`;
+
+exports[`actions replace should replace with user route with no param 1`] = `
+Object {
+  "payload": Object {
+    "code": "user",
+    "params": Object {
+      "path": undefined,
+      "query": undefined,
+    },
+  },
+  "type": "@@router/REPLACE",
+}
+`;
+
+exports[`actions replace should replace with user route with path and query params 1`] = `
+Object {
+  "payload": Object {
+    "code": "user",
+    "params": Object {
+      "path": Object {
+        "id": 3,
+      },
+      "query": Object {
+        "query": "param",
+        "token": "dezijfeziofz",
+      },
+    },
+  },
+  "type": "@@router/REPLACE",
+}
+`;
+
+exports[`actions replace should replace with user route with path params 1`] = `
+Object {
+  "payload": Object {
+    "code": "user",
+    "params": Object {
+      "path": Object {
+        "id": 2,
+        "name": "Delphine",
+      },
+      "query": undefined,
+    },
+  },
+  "type": "@@router/REPLACE",
+}
+`;
