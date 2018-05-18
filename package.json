@@ -8,6 +8,6 @@
   "workspaces": [
     "core",
     "components/react/*",
-    "example"
+    "examples/*"
   ]
 }
