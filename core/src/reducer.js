@@ -1,7 +1,7 @@
 import * as actions from './actions'
 import selectors from './selectors'
 
-export default (routes, options) => {
+export default (routes, options = {}) => {
   // init redux state
   const initState = Object.assign(
     {},
