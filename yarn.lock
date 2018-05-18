@@ -2,17 +2,13 @@
 # yarn lockfile v1
 
 
-"@k-ramel/react@^0.12.0":
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/@k-ramel/react/-/react-0.12.0.tgz#88e6c5dcc09698a0398af99b053a41fe75f1069d"
-
 "@types/estree@0.0.38":
   version "0.0.38"
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.38.tgz#c1be40aa933723c608820a99a373a16d215a1ca2"
 
 "@types/node@*":
-  version "10.0.8"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.0.8.tgz#37b4d91d4e958e4c2ba0be2b86e7ed4ff19b0858"
+  version "10.1.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.1.1.tgz#ca39d8607fa1fcb146b0530420b93f1dd4802f6c"
 
 abab@^1.0.3:
   version "1.0.4"

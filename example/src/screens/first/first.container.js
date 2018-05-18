@@ -1,4 +1,4 @@
-import { forRoute } from '@k-redux-router/react-kramel'
+import { forRoute } from '@k-redux-router/react-redux'
 import Component from './first'
 
-export default forRoute('first')(Component)
+export default forRoute.absolute('first')(Component)
