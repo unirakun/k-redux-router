@@ -47,6 +47,7 @@ const mapActionFactory = reducer => store => (action) => {
   const { type, payload } = action
 
   switch (type) {
+    case '@@router/REPLACE':
     case '@@router/PUSH': {
       const { code, params } = payload
 
@@ -62,7 +63,9 @@ const mapActionFactory = reducer => store => (action) => {
         if (href.compiled) toPush = href.compiled(params.path)
         if (params.query) queryPart = `?${toQueryString(params.query)}`
 
-        window.history.pushState(undefined, undefined, `${toPush}${queryPart}`)
+        toPush = `${toPush}${queryPart}`
+        if (type === '@@router/PUSH') window.history.pushState(undefined, undefined, toPush)
+        else window.history.replaceState(undefined, undefined, toPush)
       }
 
       // TODO: if no route, find the closest `notFound` to push it in `result`

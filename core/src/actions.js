@@ -1,5 +1,5 @@
-export const push = (code, pathParams, queryParams) => ({
-  type: '@@router/PUSH',
+const navigate = type => (code, pathParams, queryParams) => ({
+  type,
   payload: {
     code,
     params: {
@@ -8,3 +8,6 @@ export const push = (code, pathParams, queryParams) => ({
     },
   },
 })
+
+export const push = navigate('@@router/PUSH')
+export const replace = navigate('@@router/REPLACE')
