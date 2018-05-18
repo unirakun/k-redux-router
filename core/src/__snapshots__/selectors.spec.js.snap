@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`selectors factory should found the route 1`] = `true`;
+
+exports[`selectors factory should get all the params 1`] = `
+Object {
+  "path": Object {
+    "code": "path-value",
+    "other": "path-other-value",
+  },
+  "query": Object {
+    "code": "query-value",
+    "next": "query-next-value",
+  },
+}
+`;
+
+exports[`selectors factory should get all the path params 1`] = `
+Object {
+  "code": "path-value",
+  "other": "path-other-value",
+}
+`;
+
+exports[`selectors factory should get all the query params 1`] = `
+Object {
+  "code": "query-value",
+  "next": "query-next-value",
+}
+`;
+
+exports[`selectors factory should get param from path (path-value) 1`] = `"path-value"`;
+
+exports[`selectors factory should get param from query (query-next-value) 1`] = `"query-next-value"`;
+
+exports[`selectors factory should get path param (path-value) 1`] = `"path-value"`;
+
+exports[`selectors factory should get query param (query-next-value) 1`] = `"query-next-value"`;
+
+exports[`selectors factory should get route code (current-code) 1`] = `"current-code"`;
+
+exports[`selectors factory should get the current route definition 1`] = `
+Object {
+  "code": "current-code",
+  "custom": "custom-param-value",
+}
+`;
+
+exports[`selectors factory should get the result 1`] = `
+Object {
+  "found": true,
+  "params": Object {
+    "path": Object {
+      "code": "path-value",
+      "other": "path-other-value",
+    },
+    "query": Object {
+      "code": "query-value",
+      "next": "query-next-value",
+    },
+  },
+  "route": Object {
+    "code": "current-code",
+    "custom": "custom-param-value",
+  },
+}
+`;
+
+exports[`selectors factory should get the route -socials- 1`] = `
+Object {
+  "code": "socials",
+  "custom": "custom-socials-value",
+}
+`;
+
+exports[`selectors factory should select to otherPath 1`] = `"other-path"`;

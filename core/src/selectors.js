@@ -1,8 +1,8 @@
 export default (getState) => {
   const getRoute = code => state => getState(state).routes.map[code]
   const getResult = state => getState(state).result
-  const getCurrentCode = state => getRoute(state).code
   const getCurrentRoute = state => getResult(state).route
+  const getCurrentCode = state => getCurrentRoute(state).code
   const isFound = state => getResult(state).found
   const getParams = state => getResult(state).params
   const getPathParams = state => getParams(state).path
