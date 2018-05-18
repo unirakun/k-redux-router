@@ -4,13 +4,14 @@
   "description": "Redux router - KISS",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
+  "source": "src/index.js",
   "author": "Fabien JUIF <fabien.juif@gmail.com>",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "microbundle --external all"
+    "build": "microbundle"
   },
-  "dependencies": {
+  "peerDependencies": {
     "path-to-regexp": "^2.2.1"
   },
   "devDependencies": {
