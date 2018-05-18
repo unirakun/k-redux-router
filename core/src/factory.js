@@ -1,3 +1,4 @@
+/* eslint-env browser */
 import pathToRegexp from 'path-to-regexp'
 import middleware from './middleware'
 import reducer from './reducer'
@@ -13,12 +14,13 @@ const getFullHrefVersion = (routes) => {
     let propertiesToCopy = {}
     if (parent) {
       propertiesToCopy = Object
-      .entries(parent)
-      .filter(([key, value]) => !isRoute(value)) // remove children routes
-      .reduce(
-        (acc, [key, value]) => Object.assign(acc, { [key]: value }),
-        {},
-      )
+        .entries(parent)
+        // eslint-disable-next-line no-unused-vars
+        .filter(([key, value]) => !isRoute(value)) // remove children routes
+        .reduce(
+          (acc, [key, value]) => Object.assign(acc, { [key]: value }),
+          {},
+        )
     }
 
     // process href and add to array
@@ -44,7 +46,7 @@ const getFullHrefVersion = (routes) => {
     // process children
     Object
       .entries(route)
-      .filter(([key, value]) => isRoute(value))
+      .filter(([key, value]) => isRoute(value)) // eslint-disable-line no-unused-vars
       .forEach(([href, childRoute]) => addRoute([base, href].join('').replace('//', '/'), innerRoute, childRoute))
   }
 
@@ -60,28 +62,17 @@ const getFullHrefVersion = (routes) => {
         let newValue = value
         if (isRoute(value)) newValue = value.code
 
-        route[key] = newValue
+        route[key] = newValue // eslint-disable-line no-param-reassign
       })
   })
 
   return fullVersion
 }
 
-// https://stackoverflow.com/questions/1714786/query-string-encoding-of-a-javascript-object
-const toQueryString = obj => Object.keys(obj).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(obj[k])}`).join('&')
-
-// https://stackoverflow.com/questions/8648892/convert-url-parameters-to-a-javascript-object
-const queryToObject = () => {
-  if (location.search.length < 2) return {}
-
-  const search = location.search.substring(1)
-  return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
-}
-
 export default (routes, options = {}) => {
   // get history implementation (default is window.history _this is history API_)
-  let { history, getState } = options
-  if (!history && window && window.history) history = window.history
+  let { history } = options
+  if (!history && window && window.history) history = window.history // eslint-disable-line prefer-destructuring
   if (!history) throw new Error('[k-redux-router] no history implementation is given')
 
   // transform route

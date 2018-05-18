@@ -7,8 +7,8 @@ export default (routes, options) => {
     {},
     {
       routes,
-      result: { found: false }
-    }
+      result: { found: false },
+    },
   )
 
   const reducer = (state = initState, { type, payload } = {}) => {

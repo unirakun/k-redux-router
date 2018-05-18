@@ -10,7 +10,18 @@ const hasModifier = e => !!(e.shiftKey || e.altKey || e.metaKey || e.ctrlKey)
 const shouldIgnoreClick = e => hasModifier(e) || isNotLeftClick(e) || e.defaultPrevented
 
 // map store TODO: use driver (since we are in k-ramel)
-const mapStore = (store, { onClick, code, query, ...params }, { router }) => ({
+const mapStore = (
+  store,
+  {
+    onClick,
+    code,
+    query,
+    ...params
+  },
+  {
+    router,
+  },
+) => ({
   href: router.getRoute(code).href,
   onClick: (e) => {
     // parent onClick callback

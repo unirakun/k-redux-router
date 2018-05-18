@@ -23,12 +23,11 @@ export default (options = {}) => {
           {},
         ),
       // selectors
-      ...Object.
-        entries(selectors(getState))
+      ...Object.entries(selectors(getState))
         .reduce(
           (acc, [key, selector]) => {
             let fn = () => selector(store.getState())
-            if (['getRoute', 'getPathParam', 'getQueryParam' ,'getParam' ].includes(key)) {
+            if (['getRoute', 'getPathParam', 'getQueryParam', 'getParam'].includes(key)) {
               fn = (...args) => selector(...args)(store.getState())
             }
 
@@ -38,10 +37,10 @@ export default (options = {}) => {
             })
           },
           {},
-        )
+        ),
     }),
     getReducer: () => ({ path, reducer }),
     getEnhancer: () => applyMiddleware(middleware),
-    init: store => { store.dispatch(init()) },
+    init: (store) => { store.dispatch(init()) },
   }
 }

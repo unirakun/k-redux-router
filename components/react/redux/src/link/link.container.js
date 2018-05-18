@@ -17,7 +17,15 @@ const mapState = (state, { code }) => ({
   href: getRoute(code)(state).href,
 })
 
-const mapDispatch = (dispatch, { onClick, code, query, ...params }) => ({
+const mapDispatch = (
+  dispatch,
+  {
+    onClick,
+    code,
+    query,
+    ...params
+  },
+) => ({
   onClick: (e) => {
     // parent onClick callback
     if (onClick) onClick(e)

@@ -30,6 +30,6 @@ export default {
     '@k-redux-router/core',
     '@k-ramel/react',
     'prop-types',
-    'k-ramel'
+    'k-ramel',
   ],
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from '@k-redux-router/react-redux'
+import { Link } from '@k-redux-router/react-redux'
 
 const First = () => (
   <div>

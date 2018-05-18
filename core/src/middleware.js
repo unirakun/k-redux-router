@@ -1,24 +1,27 @@
+/* eslint-env browser */
+
 // https://stackoverflow.com/questions/1714786/query-string-encoding-of-a-javascript-object
 const toQueryString = obj => Object.keys(obj).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(obj[k])}`).join('&')
 
 // https://stackoverflow.com/questions/8648892/convert-url-parameters-to-a-javascript-object
 const queryToObject = () => {
+  const { location } = window
+
   if (location.search.length < 2) return {}
 
   const search = location.search.substring(1)
-  return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
+  return JSON.parse(`{"${decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"')}"}`)
 }
 
 const routeFound = result => ({ type: '@@router/ROUTE_FOUND', payload: Object.assign({ found: true }, result) })
 
-const dispatchResultFactory = reducer => store => {
-  let result = { found: false }
+const dispatchResultFactory = reducer => (store) => {
   if (window && window.location && window.location.pathname) {
     // find route (& path params)
     let pathParams
-    const route = reducer.getState(store.getState()).routes.array.find((route) => {
-      pathParams = route.href.regexp.exec(window.location.pathname)
-      return pathParams
+    const route = reducer.getState(store.getState()).routes.array.find((r) => {
+      pathParams = r.href.regexp.exec(window.location.pathname)
+      return !!pathParams
     })
 
     // attach names to path params
@@ -52,14 +55,14 @@ const mapActionFactory = reducer => store => (action) => {
 
       // update history API
       if (route) {
-        let { href } = route
+        const { href } = route
         let queryPart = ''
 
         let toPush = href.base
         if (href.compiled) toPush = href.compiled(params.path)
         if (params.query) queryPart = `?${toQueryString(params.query)}`
 
-        history.pushState(undefined, undefined, `${toPush}${queryPart}`)
+        window.history.pushState(undefined, undefined, `${toPush}${queryPart}`)
       }
 
       // TODO: if no route, find the closest `notFound` to push it in `result`
@@ -81,7 +84,7 @@ export default (routes, options, reducer) => {
   const mapAction = mapActionFactory(reducer)
 
   // redux middleware
-  return store => next => action => {
+  return store => next => (action) => {
     // these action are not catched by the middleware and are used as it is
     if (!action.type || !action.type.startsWith('@@router/')) return next(action)
 
@@ -95,7 +98,7 @@ export default (routes, options, reducer) => {
       dispatchResult(store) // TODO: move to store.dispatch pattern
 
       if (initialized) {
-        console.warn('[k-redux-router] initialized twice')
+        console.warn('[k-redux-router] initialized twice') // eslint-disable-line no-console
       } else {
         initialized = true
 
@@ -104,7 +107,7 @@ export default (routes, options, reducer) => {
       }
     }
 
-    if (!initialized && action.type !== '@@router/ROUTE_FOUND') console.warn('[k-redux-router] router should be initialized')
+    if (!initialized && action.type !== '@@router/ROUTE_FOUND') console.warn('[k-redux-router] router should be initialized') // eslint-disable-line no-console
 
     // router actions can found a new route
     const newAction = mapAction(store)(action)

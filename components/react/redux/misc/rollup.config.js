@@ -1,4 +1,3 @@
-import path from 'path'
 import fs from 'fs'
 import babel from 'rollup-plugin-babel'
 import commonjs from 'rollup-plugin-commonjs'
@@ -29,6 +28,6 @@ export default {
     'react',
     '@k-redux-router/core',
     'react-redux',
-    'prop-types'
+    'prop-types',
   ],
 }

@@ -8,8 +8,6 @@ const getDisplayName = Component => `router(${
   || 'Unknown'
 })`
 
-const isRouteFound = code => result => result && [].concat(code).includes(result.code)
-
 const hoc = (code, options) => Component => class extends React.Component {
   static displayName = getDisplayName(Component)
 

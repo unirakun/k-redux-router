@@ -8,9 +8,7 @@ const getDisplayName = Component => `router(${
   || 'Unknown'
 })`
 
-const isRouteFound = code => result => result && [].concat(code).includes(result.code)
-
-const hoc = (code, options = {}) => Component => {
+const hoc = (code, options = {}) => (Component) => {
   const {
     getState = (state => state.ui.router),
     absolute = false,

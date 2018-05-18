@@ -6,11 +6,11 @@ const routes = {
     code: 'first',
     public: true,
     '/:id/second': {
-      code: 'second'
+      code: 'second',
     },
     '/third': {
       code: 'third',
-      public: false
+      public: false,
     },
   },
 }
@@ -23,5 +23,5 @@ export default createStore(
     drivers: {
       router: router({ routes }),
     },
-  }
+  },
 )
