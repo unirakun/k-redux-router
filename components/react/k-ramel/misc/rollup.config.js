@@ -7,11 +7,11 @@ import uglify from 'rollup-plugin-uglify'
 const pkg = JSON.parse(fs.readFileSync('./package.json'))
 
 export default {
-  input: pkg['jsnext:main'] || 'src/index.js',
+  input: 'src/index.js',
   output: {
     name: pkg.amdName || pkg.name,
-    file: pkg.main,
-    format: process.env.FORMAT || 'umd',
+    file: pkg.module,
+    format: process.env.FORMAT || 'es',
     sourcemap: path.resolve(pkg.main),
     globals: {
       react: 'React',
@@ -25,5 +25,11 @@ export default {
     }),
     uglify(),
   ],
-  external: ['react'],
+  external: [
+    'react',
+    '@k-redux-router/core',
+    '@k-ramel/react',
+    'prop-types',
+    'k-ramel'
+  ],
 }

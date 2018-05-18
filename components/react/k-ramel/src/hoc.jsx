@@ -1,5 +1,6 @@
 import React from 'react'
 
+// TODO: factorize code with react-redux
 const getDisplayName = Component => `router(${
   Component.displayName
   || Component.name
@@ -37,17 +38,17 @@ const hoc = (code, options) => Component => class extends React.Component {
   }
 
   toShow = () => {
-    const state = this.context.store.getState()
+    const { router } = this.context.store.drivers
 
     // TODO: hardcoded path (state.ui)
-    if (!state.ui.router || !state.ui.router.result) {
+    if (!router.getState() || !router.getResult()) {
       // eslint-disable-next-line no-console
       console.error('[k-redux-router] | There is no route found in `state.ui.router.result`')
       return
     }
 
     // Absolute mode, we are looking in top level only
-    let currentRoute = state.ui.router.result.route
+    let currentRoute = router.getCurrentRoute()
     if (options && options.absolute) {
       const show = (code === currentRoute.code)
       if (show !== this.state.show) {
@@ -60,7 +61,7 @@ const hoc = (code, options) => Component => class extends React.Component {
     // Either way we are looking top down the result tree
     let show = (code === currentRoute.code)
     while (currentRoute && currentRoute.parent && !show) {
-      currentRoute = state.ui.router.routes.map[currentRoute.parent]
+      currentRoute = router.getRoute(currentRoute.parent)
       show = (code === currentRoute.code)
     }
 

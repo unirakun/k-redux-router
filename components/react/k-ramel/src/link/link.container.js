@@ -9,9 +9,9 @@ const isNotLeftClick = e => e.button && e.button !== LEFT_MOUSE_BUTTON
 const hasModifier = e => !!(e.shiftKey || e.altKey || e.metaKey || e.ctrlKey)
 const shouldIgnoreClick = e => hasModifier(e) || isNotLeftClick(e) || e.defaultPrevented
 
-// map store
+// map store TODO: use driver (since we are in k-ramel)
 const mapStore = (store, { onClick, code, query, ...params }, { router }) => ({
-  href: store.getState().ui.router.routes.map[code],
+  href: router.getRoute(code).href,
   onClick: (e) => {
     // parent onClick callback
     if (onClick) onClick(e)
@@ -20,7 +20,7 @@ const mapStore = (store, { onClick, code, query, ...params }, { router }) => ({
     if (shouldIgnoreClick(e)) return
 
     // dispatch the push
-    store.dispatch(store.ui.router.push(code, params, query)) // TODO: path is hardcoded (state.ui)
+    router.push(code, params, query)
 
     // prevent default behaviour
     e.preventDefault()

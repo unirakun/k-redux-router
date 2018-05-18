@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+// TODO: factorize code with react-redux
 const Link = (props) => {
   const {
     href,
@@ -16,7 +17,7 @@ const Link = (props) => {
   // TODO: factorise code from middleware and from here
   let queryPart = ''
   let processedHref = href.base
-  if (href.compiled) processedHref = href.compiled(params.path)
+  if (href.compiled) processedHref = href.compiled(params)
   if (params.query) queryPart = `?${toQueryString(params.query)}`
   processedHref = `${processedHref}${queryPart}`
 
@@ -34,7 +35,10 @@ const Link = (props) => {
 Link.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
-  href: PropTypes.string,
+  href: PropTypes.shape({
+    base: PropTypes.string,
+    compiled: PropTypes.func,
+  }),
   onClick: PropTypes.func,
 }
 
