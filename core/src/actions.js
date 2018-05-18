@@ -12,3 +12,4 @@ const navigate = type => (code, pathParams, queryParams) => ({
 export const push = navigate('@@router/PUSH')
 export const replace = navigate('@@router/REPLACE')
 export const goBack = (times = 1) => ({ type: '@@router/GO_BACK', payload: times })
+export const goForward = (times = 1) => ({ type: '@@router/GO_FORWARD', payload: times })

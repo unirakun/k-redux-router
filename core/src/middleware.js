@@ -47,6 +47,10 @@ const mapActionFactory = reducer => store => (action) => {
   const { type, payload } = action
 
   switch (type) {
+    case '@@router/GO_FORWARD': {
+      window.history.go(payload)
+      return undefined
+    }
     case '@@router/GO_BACK': {
       window.history.go(payload * -1)
       return undefined
