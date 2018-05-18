@@ -5,6 +5,13 @@
 # TODO: summary
 # TODO: bindings doc
 
+## sizes
+| packages | size | gziped |
+| -- | -- | -- |
+| `@k-redux-router/core` | ![Size](http://img.badgesize.io/alakarteio/k-redux-router/master/core/dist/index.es.js.svg) | ![Size](http://img.badgesize.io/alakarteio/k-redux-router/master/core/dist/index.es.js.svg?compression=gzip) |
+| `@k-redux-router/react-redux` | ![Size](http://img.badgesize.io/alakarteio/k-redux-router/master/components/react/redux/dist/index.es.js.svg) | ![Size](http://img.badgesize.io/alakarteio/k-redux-router/master/components/react/redux/dist/index.es.js.svg?compression=gzip) |
+| `@k-redux-router/react-kramel` | ![Size](http://img.badgesize.io/alakarteio/k-redux-router/master/components/react/k-ramel/dist/index.es.js.svg) | ![Size](http://img.badgesize.io/alakarteio/k-redux-router/master/components/react/k-ramel/dist/index.es.js.svg?compression=gzip) |
+
 ## install
 ### redux reducer, middleware, actions and selectors
 `yarn add @k-redux-router/core`
