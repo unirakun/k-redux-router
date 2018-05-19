@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`routeFound should returns found: false (overrided) 1`] = `
+Object {
+  "payload": Object {
+    "found": false,
+    "result": "payload",
+  },
+  "type": "@@router/ROUTE_FOUND",
+}
+`;
+
+exports[`routeFound should returns found: true 1`] = `
+Object {
+  "payload": Object {
+    "found": true,
+    "result": "payload",
+  },
+  "type": "@@router/ROUTE_FOUND",
+}
+`;
+
+exports[`routeFound should returns the type 1`] = `"@@router/ROUTE_FOUND"`;
