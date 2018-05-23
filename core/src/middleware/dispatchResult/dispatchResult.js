@@ -1,15 +1,19 @@
-/* eslint-env browser */
 import routeFound from '../routeFound'
 import mapQueryToObject from './mapQueryToObject'
 
-export default reducer => (store) => {
-  if (window && window.location && window.location.pathname) {
+export default (options, reducer) => (store) => {
+  const innerWindow = options.window || window
+
+  if (innerWindow && innerWindow.location && innerWindow.location.pathname) {
     // find route (& path params)
     let pathParams
     const route = reducer.getState(store.getState()).routes.array.find((r) => {
-      pathParams = r.href.regexp.exec(window.location.pathname)
+      pathParams = r.href.regexp.exec(innerWindow.location.pathname)
       return !!pathParams
     })
+
+    // TODO: handle not found
+    if (!route) return
 
     // attach names to path params
     pathParams = route.href.parsed
@@ -24,7 +28,7 @@ export default reducer => (store) => {
       route,
       params: {
         path: pathParams,
-        query: mapQueryToObject(),
+        query: mapQueryToObject(innerWindow),
       },
     }))
   }

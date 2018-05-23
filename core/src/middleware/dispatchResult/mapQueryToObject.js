@@ -1,7 +1,7 @@
 /* eslint-env browser */
 
 // https://stackoverflow.com/questions/8648892/convert-url-parameters-to-a-javascript-object
-export default () => {
+export default (window) => {
   const { location } = window
 
   if (location.search.length < 2) return {}

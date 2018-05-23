@@ -5,7 +5,7 @@ import routeFound from './routeFound'
 
 export default (routes, options, reducer) => {
   let initialized = false
-  const dispatchResult = dispatchResultFactory(reducer)
+  const dispatchResult = dispatchResultFactory(options, reducer)
   const mapAction = mapActionFactory(options, reducer)
 
   // redux middleware

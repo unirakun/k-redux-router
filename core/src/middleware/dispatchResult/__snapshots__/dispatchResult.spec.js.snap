@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dispatchResult should dispatch ROUTE_FOUND action with path and query params 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "found": true,
+      "params": Object {
+        "path": Object {
+          "id": "102",
+        },
+        "query": Object {
+          "query": "param",
+        },
+      },
+      "route": Object {
+        "href": Object {
+          "parsed": Array [
+            Object {
+              "name": "id",
+            },
+          ],
+          "regexp": /\\\\/some\\\\/\\(\\.\\*\\)\\\\/name/,
+        },
+      },
+    },
+    "type": "@@router/ROUTE_FOUND",
+  },
+]
+`;
