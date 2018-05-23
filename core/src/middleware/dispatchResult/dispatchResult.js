@@ -2,13 +2,13 @@ import routeFound from '../routeFound'
 import mapQueryToObject from './mapQueryToObject'
 
 export default (options, reducer) => (store) => {
-  const innerWindow = options.window || window
+  const { location } = options
 
-  if (innerWindow && innerWindow.location && innerWindow.location.pathname) {
+  if (location.pathname) {
     // find route (& path params)
     let pathParams
     const route = reducer.getState(store.getState()).routes.array.find((r) => {
-      pathParams = r.href.regexp.exec(innerWindow.location.pathname)
+      pathParams = r.href.regexp.exec(location.pathname)
       return !!pathParams
     })
 
@@ -28,7 +28,7 @@ export default (options, reducer) => (store) => {
       route,
       params: {
         path: pathParams,
-        query: mapQueryToObject(innerWindow),
+        query: mapQueryToObject(location),
       },
     }))
   }

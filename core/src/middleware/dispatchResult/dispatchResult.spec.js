@@ -16,7 +16,7 @@ describe('dispatchResult', () => {
             {
               href: {
                 regexp: /\/some\/(.*)\/name/,
-                parsed: [{ name: 'id' }]
+                parsed: [{ name: 'id' }],
               },
             },
           ],
@@ -27,11 +27,9 @@ describe('dispatchResult', () => {
   }
 
   const options = {
-    window: {
-      location: {
-        pathname: '/some/102/name',
-        search: '?query=param',
-      },
+    location: {
+      pathname: '/some/102/name',
+      search: '?query=param',
     },
   }
 
@@ -39,20 +37,14 @@ describe('dispatchResult', () => {
     store.dispatch.mockClear()
   })
 
-  it('should dispatch nothing when no location is given', () => {
-    dispatchResult({ ...options, window: {} }, reducer)(store)
-
-    expect(store.dispatch.mock.calls.length).toBe(0)
-  })
-
   it('should dispatch nothing when no pathname is given', () => {
-    dispatchResult({ ...options, window: { location: {} } }, reducer)(store)
+    dispatchResult({ ...options, location: {} }, reducer)(store)
 
     expect(store.dispatch.mock.calls.length).toBe(0)
   })
 
   it('should dispatch nothing if no route is found', () => {
-    dispatchResult({ ...options, window: { location: { pathname: 'not-found' } } }, reducer)(store)
+    dispatchResult({ ...options, location: { pathname: 'not-found' } }, reducer)(store)
 
     expect(store.dispatch.mock.calls.length).toBe(0)
   })
