@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mapQueryToObject should map the query param of a path to an object 1`] = `
+Object {
+  "an": "object",
+  "parameters": "true",
+  "should": "be",
+  "with": "4",
+}
+`;
+
+exports[`mapQueryToObject should returns an empty object when just the ? 1`] = `Object {}`;
+
+exports[`mapQueryToObject should returns an empty object when no query 1`] = `Object {}`;

@@ -11,7 +11,7 @@
     "examples/*"
   ],
   "scripts": {
-    "lint:js": "eslint . --ext js,jsx --ignore-pattern dist/",
+    "lint:js": "eslint . --ext js,jsx --ignore-pattern dist/ --ignore-pattern coverage/",
     "test": "jest",
     "coveralls": "jest --projects --coverage && cat ./coverage/lcov.info | coveralls",
     "ci": "run-p lint:* coveralls"
