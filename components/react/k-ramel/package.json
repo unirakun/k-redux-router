@@ -1,12 +1,11 @@
 {
-  "name": "@k-redux-router/react-kramel",
+  "name": "@k-redux-router/react-k-ramel",
   "version": "0.1.0",
   "description": "React components (binded to redux store with k-ramel)",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "author": "Fabien JUIF <fabien.juif@gmail.com>",
   "license": "MIT",
-  "private": true,
   "scripts": {
     "build:core": "cross-env NODE_ENV=build rollup -c ./misc/rollup.config.js",
     "build": "run-p build:*"

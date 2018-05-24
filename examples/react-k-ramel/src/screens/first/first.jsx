@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from '@k-redux-router/react-kramel'
+import { Link } from '@k-redux-router/react-k-ramel'
 
 const First = () => (
   <div>
