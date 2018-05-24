@@ -15,5 +15,9 @@
   },
   "devDependencies": {
     "microbundle": "^0.4.4"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }

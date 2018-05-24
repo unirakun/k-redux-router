@@ -63,5 +63,9 @@
   },
   "peerDependencies": {
     "react-redux": "^5.0.7"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }
