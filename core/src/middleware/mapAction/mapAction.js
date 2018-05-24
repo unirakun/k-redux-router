@@ -21,7 +21,7 @@ export default (options, reducer) => {
       }
       case '@@router/REPLACE':
       case '@@router/PUSH': {
-        const { code, params } = payload
+        const { code, params = {} } = payload
 
         // find route
         const route = reducer.getState(store.getState()).routes.map[code]
@@ -38,15 +38,16 @@ export default (options, reducer) => {
           toPush = `${toPush}${queryPart}`
           if (type === '@@router/PUSH') history.pushState(undefined, undefined, toPush)
           else history.replaceState(undefined, undefined, toPush)
+
+          // update state
+          return routeFound({
+            route,
+            params,
+          })
         }
 
         // TODO: if no route, find the closest `notFound` to push it in `result`
-
-        // update state
-        return routeFound({
-          route,
-          params,
-        })
+        return undefined
       }
       // default is undefined so we avoid infinite loop
       default: return undefined
