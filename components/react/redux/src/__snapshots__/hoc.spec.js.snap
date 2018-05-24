@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`hoc should not print absolute route -child- 1`] = `<div />`;
+
+exports[`hoc should print absolute route -strict equality- 1`] = `
+<div>
+  <div>
+    Absolute component
+  </div>
+</div>
+`;
+
+exports[`hoc should print relative route -child- 1`] = `
+<div>
+  <div>
+    Relative component
+  </div>
+</div>
+`;
+
+exports[`hoc should print relative route -strict equality- 1`] = `
+<div>
+  <div>
+    Relative component
+  </div>
+</div>
+`;
