@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mapAction should go backward and return undefined action 1`] = `
+Object {
+  "compiled": Array [],
+  "go": Array [
+    Array [
+      -5,
+    ],
+  ],
+  "pushState": Array [],
+  "replaceState": Array [],
+  "returns": undefined,
+}
+`;
+
+exports[`mapAction should go forward and return undefined action 1`] = `
+Object {
+  "compiled": Array [],
+  "go": Array [
+    Array [
+      3,
+    ],
+  ],
+  "pushState": Array [],
+  "replaceState": Array [],
+  "returns": undefined,
+}
+`;
+
+exports[`mapAction should return a ROUTE_FOUND action with compiled params -push- 1`] = `
+Object {
+  "compiled": Array [
+    Array [
+      Object {
+        "one": "path-param",
+      },
+    ],
+  ],
+  "go": Array [],
+  "pushState": Array [
+    Array [
+      undefined,
+      undefined,
+      "compiled/route/?an=other-query-param",
+    ],
+  ],
+  "replaceState": Array [],
+  "returns": Object {
+    "payload": Object {
+      "found": true,
+      "params": Object {
+        "path": Object {
+          "one": "path-param",
+        },
+        "query": Object {
+          "an": "other-query-param",
+        },
+      },
+      "route": Object {
+        "href": Object {
+          "base": "/route/:id/with/parameters",
+          "compiled": [MockFunction] {
+            "calls": Array [
+              Array [
+                Object {
+                  "one": "path-param",
+                },
+              ],
+            ],
+          },
+        },
+      },
+    },
+    "type": "@@router/ROUTE_FOUND",
+  },
+}
+`;
+
+exports[`mapAction should return a ROUTE_FOUND action with compiled params -replace- 1`] = `
+Object {
+  "compiled": Array [],
+  "go": Array [],
+  "pushState": Array [],
+  "replaceState": Array [
+    Array [
+      undefined,
+      undefined,
+      "/route/without/parameters",
+    ],
+  ],
+  "returns": Object {
+    "payload": Object {
+      "found": true,
+      "params": Object {},
+      "route": Object {
+        "href": Object {
+          "base": "/route/without/parameters",
+        },
+      },
+    },
+    "type": "@@router/ROUTE_FOUND",
+  },
+}
+`;
+
+exports[`mapAction should return undefined when action is unknown 1`] = `
+Object {
+  "compiled": Array [],
+  "go": Array [],
+  "pushState": Array [],
+  "replaceState": Array [],
+  "returns": undefined,
+}
+`;
