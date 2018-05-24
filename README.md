@@ -1,6 +1,8 @@
 # k-redux-router
 
-:construction: this is a WIP
+> redux router (with bindings) / one route = one code
+
+[![CircleCI](https://circleci.com/gh/alakarteio/k-redux-router.svg?style=shield)](https://circleci.com/gh/alakarteio/k-redux-router) [![Coverage Status](https://coveralls.io/repos/github/alakarteio/k-redux-router/badge.svg?branch=master)](https://coveralls.io/github/alakarteio/k-redux-router?branch=master) [![NPM Version](https://badge.fury.io/js/k-redux-router.svg)](https://www.npmjs.com/package/k-redux-router)
 
 ## contents
  - [Purpose](#purpose) TODO:
@@ -19,7 +21,7 @@
 | -- | -- | -- |
 | `@k-redux-router/core` | ![Size](http://img.badgesize.io/alakarteio/k-redux-router/master/core/dist/index.es.js.svg) | ![Size](http://img.badgesize.io/alakarteio/k-redux-router/master/core/dist/index.es.js.svg?compression=gzip) |
 | `@k-redux-router/react-redux` | ![Size](http://img.badgesize.io/alakarteio/k-redux-router/master/components/react/redux/dist/index.es.js.svg) | ![Size](http://img.badgesize.io/alakarteio/k-redux-router/master/components/react/redux/dist/index.es.js.svg?compression=gzip) |
-| `@k-redux-router/react-kramel` | ![Size](http://img.badgesize.io/alakarteio/k-redux-router/master/components/react/k-ramel/dist/index.es.js.svg) | ![Size](http://img.badgesize.io/alakarteio/k-redux-router/master/components/react/k-ramel/dist/index.es.js.svg?compression=gzip) |
+| `@k-redux-router/react-kramel` | ![Size](http://img.badgesize.io/alakarteio/k-redux-router/master/components/react/k-redux-router/dist/index.es.js.svg) | ![Size](http://img.badgesize.io/alakarteio/k-redux-router/master/components/react/k-redux-router/dist/index.es.js.svg?compression=gzip) |
 
 ## install
 ### redux reducer, middleware, actions and selectors
@@ -27,7 +29,7 @@
 
 ### binding to ReactJS (there is no other binder at the moment)
  - with **react-redux**: `yarn add @k-redux-router/react-redux`
- - with **k-ramel**: `yarn add @k-redux-router/react-kramel`
+ - with **k-redux-router**: `yarn add @k-redux-router/react-kramel`
 
 ## API
 ### routes definitions
@@ -184,9 +186,9 @@ store.dispatch(router.init())
 export default store
 ```
 
-**with k-ramel**
+**with k-redux-router**
 ```js
-import { createStore } from 'k-ramel'
+import { createStore } from 'k-redux-router'
 import { router } from '@k-redux-router/react-kramel'
 import routes from './routes' // you previous defined routes
 
