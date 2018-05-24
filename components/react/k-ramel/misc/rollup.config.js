@@ -1,4 +1,3 @@
-import path from 'path'
 import fs from 'fs'
 import babel from 'rollup-plugin-babel'
 import commonjs from 'rollup-plugin-commonjs'
@@ -12,7 +11,7 @@ export default {
     name: pkg.amdName || pkg.name,
     file: pkg.module,
     format: process.env.FORMAT || 'es',
-    sourcemap: path.resolve(pkg.main),
+    sourcemap: false,
     globals: {
       react: 'React',
     },

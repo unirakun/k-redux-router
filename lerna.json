@@ -1,0 +1,13 @@
+{
+  "lerna": "2.11.0",
+  "packages": [
+    "core",
+    "components/react/*",
+    "examples/*"
+  ],
+  "command": {
+    "init": {
+      "exact": true
+    }
+  }
+}

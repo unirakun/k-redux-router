@@ -1,5 +1,5 @@
 import { createStore } from 'k-ramel'
-import { router } from '@k-redux-router/react-kramel'
+import { router } from '@k-redux-router/react-k-ramel'
 
 const routes = {
   '/': {

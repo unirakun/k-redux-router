@@ -7,7 +7,6 @@
   "source": "src/index.js",
   "author": "Fabien JUIF <fabien.juif@gmail.com>",
   "license": "MIT",
-  "private": true,
   "scripts": {
     "build": "microbundle --sourcemap=false"
   },
