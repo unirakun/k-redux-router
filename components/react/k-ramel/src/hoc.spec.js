@@ -1,9 +1,11 @@
+/* eslint-disable
+  react/jsx-filename-extension,
+*/
 /* eslint-env jest */
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { createStore } from 'k-ramel'
 import { provider } from '@k-ramel/react'
-import driver from './driver'
 import hoc from './hoc'
 
 const matchApp = code => () => {
@@ -23,11 +25,11 @@ const matchApp = code => () => {
             getCurrentRoute: () => ({
               code, // current route is the root parameter
               parent: code.split('_')[0], // either relative or absolute or undefined
-            })
-          })
-        }
-      }
-    }
+            }),
+          }),
+        },
+      },
+    },
   )
 
   const RelativeDecoratedComponent = hoc('relative')(() => <div>Relative component</div>)

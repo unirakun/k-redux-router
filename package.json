@@ -11,10 +11,11 @@
     "examples/*"
   ],
   "scripts": {
-    "lint:js": "eslint . --ext js,jsx --ignore-pattern dist/ --ignore-pattern coverage/",
+    "lint:js": "eslint . --ext js,jsx --ignore-pattern dist/ --ignore-pattern coverage/ --ignore-pattern node_modules/",
+    "lint": "run-p lint:*",
     "test": "jest",
     "coveralls": "jest --projects --coverage && cat ./coverage/lcov.info | coveralls",
-    "ci": "run-p lint:* coveralls"
+    "ci": "run-p lint coveralls"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

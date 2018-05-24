@@ -1,3 +1,7 @@
+/* eslint-disable
+  react/jsx-filename-extension,
+  function-paren-newline,
+*/
 /* eslint-env jest */
 import React from 'react'
 import renderer from 'react-test-renderer'
@@ -9,7 +13,7 @@ describe('Link', () => {
     const rendered = renderer.create(
       <Link
         href={{
-          base: "/path/:with/some/:params",
+          base: '/path/:with/some/:params',
           compiled,
         }}
         with="with-value"
@@ -18,7 +22,7 @@ describe('Link', () => {
           this: 'is',
           two: 'query-params',
         }}
-      />
+      />,
     )
 
     expect({
