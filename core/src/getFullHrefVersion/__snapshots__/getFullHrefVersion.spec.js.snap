@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getFullHrefVersion should add no route 1`] = `Array []`;
+
+exports[`getFullHrefVersion should add routes with path param 1`] = `
+Array [
+  Object {
+    "code": "user_detail",
+    "href": Object {
+      "base": "/:id/detail",
+      "compiled": [Function],
+      "parsed": Array [
+        Object {
+          "delimiter": "/",
+          "name": "id",
+          "optional": false,
+          "partial": false,
+          "pattern": "[^\\\\/]+?",
+          "prefix": "/",
+          "repeat": false,
+        },
+        "/detail",
+      ],
+      "regexp": /\\^\\\\/\\(\\[\\^\\\\/\\]\\+\\?\\)\\\\/detail\\(\\?:\\\\/\\)\\?\\$/i,
+    },
+    "parent": undefined,
+  },
+]
+`;
+
+exports[`getFullHrefVersion should add simples routes -nested- 1`] = `
+Array [
+  Object {
+    "/user": "user",
+    "code": "main",
+    "href": Object {
+      "base": "/",
+      "compiled": undefined,
+      "parsed": Array [
+        "/",
+      ],
+      "regexp": /\\^\\\\/\\(\\?:\\\\/\\)\\?\\$/i,
+    },
+    "parent": undefined,
+  },
+  Object {
+    "code": "user",
+    "href": Object {
+      "base": "/user",
+      "compiled": undefined,
+      "parsed": Array [
+        "/user",
+      ],
+      "regexp": /\\^\\\\/user\\(\\?:\\\\/\\)\\?\\$/i,
+    },
+    "parent": "main",
+  },
+]
+`;
+
+exports[`getFullHrefVersion should pass parameters from parent to children 1`] = `
+Array [
+  Object {
+    "/user": "user-list",
+    "code": "main",
+    "href": Object {
+      "base": "/",
+      "compiled": undefined,
+      "parsed": Array [
+        "/",
+      ],
+      "regexp": /\\^\\\\/\\(\\?:\\\\/\\)\\?\\$/i,
+    },
+    "parent": undefined,
+    "public": true,
+  },
+  Object {
+    "/:id": "user",
+    "code": "user-list",
+    "href": Object {
+      "base": "/user",
+      "compiled": undefined,
+      "parsed": Array [
+        "/user",
+      ],
+      "regexp": /\\^\\\\/user\\(\\?:\\\\/\\)\\?\\$/i,
+    },
+    "parent": "main",
+    "public": true,
+  },
+  Object {
+    "code": "user",
+    "href": Object {
+      "base": "/user/:id",
+      "compiled": [Function],
+      "parsed": Array [
+        "/user",
+        Object {
+          "delimiter": "/",
+          "name": "id",
+          "optional": false,
+          "partial": false,
+          "pattern": "[^\\\\/]+?",
+          "prefix": "/",
+          "repeat": false,
+        },
+      ],
+      "regexp": /\\^\\\\/user\\\\/\\(\\[\\^\\\\/\\]\\+\\?\\)\\(\\?:\\\\/\\)\\?\\$/i,
+    },
+    "parent": "user-list",
+    "public": false,
+  },
+]
+`;
