@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`middleware should dispatch router action 1`] = `
+Object {
+  "dispatch": Array [],
+  "dispatchResult": Array [],
+  "next": Array [
+    Array [
+      Object {
+        "payload": Object {
+          "code": "code",
+        },
+        "type": "@@router/PUSH",
+      },
+    ],
+  ],
+  "pushState": Array [
+    Array [
+      undefined,
+      undefined,
+      "/base/path",
+    ],
+  ],
+  "res": "next result",
+}
+`;
+
+exports[`middleware should do nothing but call next middleware -action without type- 1`] = `
+Object {
+  "dispatch": Array [],
+  "dispatchResult": Array [],
+  "next": Array [
+    Array [
+      Object {
+        "action": "without type",
+      },
+    ],
+  ],
+  "pushState": Array [],
+  "res": "next result",
+}
+`;
+
+exports[`middleware should do nothing but call next middlware -action that is not router scope- 1`] = `
+Object {
+  "dispatch": Array [],
+  "dispatchResult": Array [],
+  "next": Array [
+    Array [
+      Object {
+        "type": "NOT-ROUTER",
+      },
+    ],
+  ],
+  "pushState": Array [],
+  "res": "next result",
+}
+`;
+
+exports[`middleware should init the router 1`] = `
+Object {
+  "dispatch": Array [],
+  "dispatchResult": Array [
+    Array [
+      Object {
+        "dispatch": [MockFunction],
+        "getState": [Function],
+        "store": true,
+      },
+    ],
+  ],
+  "next": Array [
+    Array [
+      Object {
+        "type": "@@router/INIT",
+      },
+    ],
+  ],
+  "pushState": Array [],
+  "res": "next result",
+}
+`;

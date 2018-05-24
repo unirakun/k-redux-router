@@ -29,7 +29,7 @@ export default (routes, options, reducer) => {
 
         // watcher (location)
         // TODO: make it pure
-        window.onpopstate = () => { dispatchResult(store) } // TODO: move to store.dispatch pattern
+        if (window) window.onpopstate = () => { dispatchResult(store) } // TODO: move to store.dispatch pattern
       }
     }
 
