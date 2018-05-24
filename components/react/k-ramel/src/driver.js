@@ -1,4 +1,4 @@
-import factory, { selectors, actions } from '@k-redux-router/core'
+import { router, selectors, actions } from '@k-redux-router/core'
 import { applyMiddleware } from 'k-ramel'
 
 export default (options = {}) => {
@@ -8,7 +8,7 @@ export default (options = {}) => {
     getState = state => state.ui.router,
   } = options
 
-  const { middleware, reducer, init } = factory(routes, { getState })
+  const { middleware, reducer, init } = router(routes, { getState })
 
   return {
     getDriver: store => ({
