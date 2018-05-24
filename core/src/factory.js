@@ -29,6 +29,7 @@ export default (routes, options = defaultOptions) => {
 
   // implementations
   const reducerImpl = reducer(innerRoutes, innerOptions)
+
   return ({
     middleware: middleware(innerRoutes, innerOptions, reducerImpl),
     reducer: reducerImpl,

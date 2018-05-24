@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Link should print the complete link -with path params and query params- 1`] = `
+Object {
+  "compiled": Array [
+    Array [
+      Object {
+        "children": undefined,
+        "className": undefined,
+        "params": "params-value",
+        "query": Object {
+          "this": "is",
+          "two": "query-params",
+        },
+        "with": "with-value",
+      },
+    ],
+  ],
+  "rendered": <a
+    className={undefined}
+    href="/full/path/compiled?this=is&two=query-params"
+    onClick={undefined}
+  />,
+}
+`;

@@ -9,7 +9,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "microbundle"
+    "build": "microbundle --sourcemap=false"
   },
   "peerDependencies": {
     "path-to-regexp": "^2.2.1"
