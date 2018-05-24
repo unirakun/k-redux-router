@@ -87,7 +87,7 @@
         {
           "ignore": [
             "k-redux-router/react-redux$",
-            "@k-redux-router/react-kramel$"
+            "@k-redux-router/react-k-ramel$"
           ]
         }
       ],
