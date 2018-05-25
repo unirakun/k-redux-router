@@ -17,9 +17,12 @@ const Link = (props) => {
     children,
   } = params
 
+  if (href === undefined) return null
+
   // TODO: factorise code from middleware and from here
   let queryPart = ''
-  let processedHref = href.base
+  let processedHref = href
+  if (href.base) processedHref = href.base
   if (href.compiled) processedHref = href.compiled(params)
   if (params.query) queryPart = `?${toQueryString(params.query)}`
   processedHref = `${processedHref}${queryPart}`
@@ -38,10 +41,13 @@ const Link = (props) => {
 Link.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
-  href: PropTypes.shape({
-    base: PropTypes.string,
-    compiled: PropTypes.func,
-  }),
+  href: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      base: PropTypes.string,
+      compiled: PropTypes.func,
+    }),
+  ]),
   onClick: PropTypes.func,
 }
 

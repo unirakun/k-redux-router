@@ -22,7 +22,7 @@ const mapStore = (
     router,
   },
 ) => ({
-  href: router.getRoute(code).href,
+  href: params.href || (router.getRoute(code) && router.getRoute(code).href),
   onClick: (e) => {
     // parent onClick callback
     if (onClick) onClick(e)
