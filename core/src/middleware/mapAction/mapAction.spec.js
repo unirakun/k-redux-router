@@ -22,6 +22,10 @@ describe('mapAction', () => {
             href: {
               base: '/route/:id/with/parameters',
               compiled: jest.fn(() => 'compiled/route/'),
+              parsed: [
+                '/something',
+                { name: 'one' },
+              ],
             },
           },
           'found-code-2': {
@@ -62,7 +66,7 @@ describe('mapAction', () => {
     payload: {
       code: 'found-code',
       params: {
-        path: { one: 'path-param' },
+        path: { one: 'path-param', should: 'not be there (filtered)' },
         query: { an: 'other-query-param' },
       },
     },
