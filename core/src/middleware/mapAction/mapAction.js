@@ -26,23 +26,36 @@ export default (options, reducer) => {
         // find route
         const route = reducer.getState(store.getState()).routes.map[code]
 
-        // update history API
         if (route) {
+          // construct URI
           const { href } = route
           let queryPart = ''
-
           let toPush = href.base
           if (href.compiled) toPush = href.compiled(params.path)
           if (params.query) queryPart = `?${toQueryString(params.query)}`
 
+          // push URI to history API
           toPush = `${toPush}${queryPart}`
           if (type === '@@router/PUSH') history.pushState(undefined, undefined, toPush)
           else history.replaceState(undefined, undefined, toPush)
 
+          // remove unknown path params
+          const pathParamsToPush = {}
+          if (params && href.parsed) {
+            href.parsed
+              .filter(part => typeof part === 'object')
+              .map(part => part.name)
+              .filter(name => params.path[name])
+              .forEach((name) => { pathParamsToPush[name] = params.path[name] })
+          }
+
           // update state
           return routeFound({
             route,
-            params,
+            params: {
+              ...params,
+              path: pathParamsToPush,
+            },
           })
         }
 
