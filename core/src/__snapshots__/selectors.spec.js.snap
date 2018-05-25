@@ -5,27 +5,31 @@ exports[`selectors factory should found the route 1`] = `true`;
 exports[`selectors factory should get all the params 1`] = `
 Object {
   "path": Object {
-    "code": "path-value",
+    "common": "path-value",
     "other": "path-other-value",
+    "param": "path-param-value",
   },
   "query": Object {
-    "code": "query-value",
+    "common": "query-value",
     "next": "query-next-value",
+    "param": "query-param-value",
   },
 }
 `;
 
 exports[`selectors factory should get all the path params 1`] = `
 Object {
-  "code": "path-value",
+  "common": "path-value",
   "other": "path-other-value",
+  "param": "path-param-value",
 }
 `;
 
 exports[`selectors factory should get all the query params 1`] = `
 Object {
-  "code": "query-value",
+  "common": "query-value",
   "next": "query-next-value",
+  "param": "query-param-value",
 }
 `;
 
@@ -41,8 +45,10 @@ exports[`selectors factory should get route code (current-code) 1`] = `"current-
 
 exports[`selectors factory should get the current route definition 1`] = `
 Object {
+  "alone": "route-alone-value",
   "code": "current-code",
   "custom": "custom-param-value",
+  "param": "route-param-value",
 }
 `;
 
@@ -51,20 +57,26 @@ Object {
   "found": true,
   "params": Object {
     "path": Object {
-      "code": "path-value",
+      "common": "path-value",
       "other": "path-other-value",
+      "param": "path-param-value",
     },
     "query": Object {
-      "code": "query-value",
+      "common": "query-value",
       "next": "query-next-value",
+      "param": "query-param-value",
     },
   },
   "route": Object {
+    "alone": "route-alone-value",
     "code": "current-code",
     "custom": "custom-param-value",
+    "param": "route-param-value",
   },
 }
 `;
+
+exports[`selectors factory should get the result route params 1`] = `"route-alone-value"`;
 
 exports[`selectors factory should get the route -socials- 1`] = `
 Object {
