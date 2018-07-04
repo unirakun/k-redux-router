@@ -46,9 +46,10 @@ const hoc = (code, options) => Component => class extends React.Component {
     }
 
     // Absolute mode, we are looking in top level only
+    const codes = [].concat(code)
     let currentRoute = router.getCurrentRoute()
     if (options && options.absolute) {
-      const show = (code === currentRoute.code)
+      const show = codes.includes(currentRoute.code)
       if (show !== this.state.show) {
         this.setState(innerState => ({ ...innerState, show }))
       }
@@ -57,10 +58,10 @@ const hoc = (code, options) => Component => class extends React.Component {
     }
 
     // Either way we are looking top down the result tree
-    let show = (code === currentRoute.code)
+    let show = codes.includes(currentRoute.code)
     while (currentRoute && currentRoute.parent && !show) {
       currentRoute = router.getRoute(currentRoute.parent)
-      show = (code === currentRoute.code)
+      show = codes.includes(currentRoute.code)
     }
 
     if (show !== this.state.show) {
