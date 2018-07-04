@@ -2,7 +2,7 @@
 import selectors from './selectors'
 
 describe('selectors', () => {
-  const getState = () => ({
+  const getState = emptyParams => ({
     otherPath: {
       result: {
         found: true,
@@ -33,7 +33,7 @@ describe('selectors', () => {
           custom: 'custom-param-value',
           alone: 'route-alone-value',
         },
-        params: {
+        params: emptyParams ? {} : {
           path: {
             param: 'path-param-value',
             common: 'path-value',
@@ -50,7 +50,7 @@ describe('selectors', () => {
   })
 
   describe('factory', () => {
-    const match = callback => () => expect(callback(getState())).toMatchSnapshot()
+    const match = (callback, emptyParams) => () => expect(callback(getState(emptyParams))).toMatchSnapshot()
 
     // test selector
     it('should select to otherPath', match(selectors(state => state.otherPath).getCurrentCode))
@@ -70,5 +70,6 @@ describe('selectors', () => {
     it('should get the result', match(s.getResult))
     it('should get the route -socials-', match(s.getRoute('socials')))
     it('should get the result route params', match(s.getResultParam('alone')))
+    it('should get undefined where there is no param', match(s.getParam('next'), true))
   })
 })

@@ -85,4 +85,6 @@ Object {
 }
 `;
 
+exports[`selectors factory should get undefined where there is no param 1`] = `undefined`;
+
 exports[`selectors factory should select to otherPath 1`] = `"other-path"`;
