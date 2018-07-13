@@ -9,7 +9,7 @@ export default {
   input: 'src/index.js',
   output: {
     name: pkg.amdName || pkg.name,
-    file: pkg.module,
+    file: `dist/index.${process.env.FORMAT || 'es'}.js`,
     format: process.env.FORMAT || 'es',
     sourcemap: false,
     globals: {
