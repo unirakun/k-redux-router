@@ -1,9 +1,9 @@
 {
   "name": "example-react-redux",
-  "version": "0.4.0",
+  "version": "0.4.2",
   "private": true,
   "dependencies": {
-    "@k-redux-router/react-redux": "^0.4.0",
+    "@k-redux-router/react-redux": "^0.4.2",
     "path-to-regexp": "^2.2.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
