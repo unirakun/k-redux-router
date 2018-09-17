@@ -1,6 +1,6 @@
 {
   "name": "@k-redux-router/react-k-ramel",
-  "version": "0.4.2",
+  "version": "0.4.4",
   "description": "React components (binded to redux store with k-ramel)",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
@@ -26,6 +26,13 @@
     "rollup-plugin-babel": "^3.0.4",
     "rollup-plugin-commonjs": "^9.1.3",
     "rollup-plugin-uglify": "^3.0.0"
+  },
+  "peerDependencies": {
+    "@k-ramel/react": "^0.12.0",
+    "@k-redux-router/core": "^0.4.0",
+    "k-ramel": "^0.12.0",
+    "prop-types": "^15.6.0",
+    "react": "^16.0.0"
   },
   "babel": {
     "presets": [
