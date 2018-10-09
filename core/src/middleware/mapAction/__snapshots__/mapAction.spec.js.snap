@@ -68,6 +68,12 @@ Object {
                 },
               ],
             ],
+            "results": Array [
+              Object {
+                "isThrow": false,
+                "value": "compiled/route/",
+              },
+            ],
           },
           "parsed": Array [
             "/something",

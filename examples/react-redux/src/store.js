@@ -1,5 +1,10 @@
-import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
-import createRouter from '@k-redux-router/core'
+import {
+  createStore,
+  applyMiddleware,
+  combineReducers,
+  compose,
+} from 'redux'
+import { router } from '@k-redux-router/core'
 
 // eslint-disable-next-line no-underscore-dangle, no-undef
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
@@ -18,7 +23,7 @@ const routes = {
   },
 }
 
-const router = createRouter(routes, { getState: state => state.ui.router })
+const { init, middleware } = router(routes, { getState: state => state.ui.router })
 
 const store = createStore(
   combineReducers({
@@ -27,9 +32,9 @@ const store = createStore(
     }),
   }),
   undefined,
-  composeEnhancers(applyMiddleware(router.middleware)),
+  composeEnhancers(applyMiddleware(middleware)),
 )
 
-store.dispatch(router.init())
+store.dispatch(init())
 
 export default store
