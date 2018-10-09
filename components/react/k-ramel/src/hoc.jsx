@@ -22,8 +22,10 @@ const hoc = (code, options) => Component => class extends React.Component {
   }
 
   componentWillMount() {
+    const { store } = this.context
+
     // subscribe
-    this.unsubscribe = this.context.store.subscribe(() => {
+    this.unsubscribe = store.subscribe(() => {
       this.toShow()
     })
 
@@ -36,7 +38,8 @@ const hoc = (code, options) => Component => class extends React.Component {
   }
 
   toShow = () => {
-    const { router } = this.context.store.drivers
+    const { store } = this.context
+    const { router } = store.drivers
 
     // TODO: hardcoded path (state.ui)
     if (!router.getState() || !router.getResult()) {
@@ -50,7 +53,7 @@ const hoc = (code, options) => Component => class extends React.Component {
     let currentRoute = router.getCurrentRoute()
     if (options && options.absolute) {
       const show = codes.includes(currentRoute.code)
-      if (show !== this.state.show) {
+      if (show !== this.state.show) { // eslint-disable-line react/destructuring-assignment
         this.setState(innerState => ({ ...innerState, show }))
       }
 
@@ -64,13 +67,14 @@ const hoc = (code, options) => Component => class extends React.Component {
       show = codes.includes(currentRoute.code)
     }
 
-    if (show !== this.state.show) {
+    if (show !== this.state.show) { // eslint-disable-line react/destructuring-assignment
       this.setState(innerState => ({ ...innerState, show }))
     }
   }
 
   render() {
-    if (!this.state.show) return null
+    const { show } = this.state
+    if (!show) return null
 
     return <Component {...this.props} />
   }

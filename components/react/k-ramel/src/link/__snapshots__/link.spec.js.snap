@@ -17,9 +17,7 @@ Object {
     ],
   ],
   "rendered": <a
-    className={undefined}
     href="/full/path/compiled?this=is&two=query-params"
-    onClick={undefined}
   />,
 }
 `;

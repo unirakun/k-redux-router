@@ -1,6 +1,6 @@
 /* eslint-env jest */
-import './index'
+require('./index')
 
 describe('coverage', () => {
-  it('should force coverage')
+  it.skip('should force coverage', () => {})
 })

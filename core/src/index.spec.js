@@ -2,5 +2,5 @@
 import './index'
 
 describe('coverage', () => {
-  it('should force coverage')
+  it.skip('should force coverage', () => {})
 })

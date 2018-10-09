@@ -23,7 +23,8 @@ export default (options = {}) => {
           {},
         ),
       // selectors
-      ...Object.entries(selectors(getState))
+      ...Object
+        .entries(selectors(getState))
         .reduce(
           (acc, [key, selector]) => {
             let fn = () => selector(store.getState())

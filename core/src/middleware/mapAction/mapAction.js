@@ -50,7 +50,6 @@ export default (options, reducer) => {
           if (type === '@@router/PUSH') history.pushState(undefined, undefined, toPush)
           else history.replaceState(undefined, undefined, toPush)
 
-
           // update state
           const paramsToPush = { ...params }
           if (params && params.path) paramsToPush.path = pathParamsToPush

@@ -30,8 +30,9 @@ const hoc = (code, options = {}) => (Component) => {
     }
 
     componentWillMount() {
+      const { store } = this.context
       // subscribe
-      this.unsubscribe = this.context.store.subscribe(() => {
+      this.unsubscribe = store.subscribe(() => {
         this.toShow()
       })
 
@@ -44,7 +45,8 @@ const hoc = (code, options = {}) => (Component) => {
     }
 
     toShow = () => {
-      const state = this.context.store.getState()
+      const { store } = this.context
+      const state = store.getState()
 
       if (!getState(state) || !getResult(state)) {
         // eslint-disable-next-line no-console
@@ -57,7 +59,7 @@ const hoc = (code, options = {}) => (Component) => {
       let currentRoute = getCurrentRoute(state)
       if (absolute) {
         const show = codes.includes(currentRoute.code)
-        if (show !== this.state.show) {
+        if (show !== this.state.show) { // eslint-disable-line react/destructuring-assignment
           this.setState(innerState => ({ ...innerState, show }))
         }
 
@@ -71,13 +73,14 @@ const hoc = (code, options = {}) => (Component) => {
         show = codes.includes(currentRoute.code)
       }
 
-      if (show !== this.state.show) {
+      if (show !== this.state.show) { // eslint-disable-line react/destructuring-assignment
         this.setState(innerState => ({ ...innerState, show }))
       }
     }
 
     render() {
-      if (!this.state.show) return null
+      const { show } = this.state
+      if (!show) return null
 
       return <Component {...this.props} />
     }

@@ -1,7 +1,7 @@
 import fs from 'fs'
 import babel from 'rollup-plugin-babel'
 import commonjs from 'rollup-plugin-commonjs'
-import uglify from 'rollup-plugin-uglify'
+import { terser } from 'rollup-plugin-terser'
 
 const pkg = JSON.parse(fs.readFileSync('./package.json'))
 
@@ -13,6 +13,9 @@ export default {
     format: process.env.FORMAT || 'es',
     sourcemap: false,
     globals: {
+      '@k-redux-router/core': 'kReduxRouterCore',
+      'prop-types': 'PropTypes',
+      'react-redux': 'reactRedux',
       react: 'React',
     },
   },
@@ -22,7 +25,7 @@ export default {
       include: 'node_modules/**',
       extensions: ['.js', '.jsx'],
     }),
-    uglify(),
+    terser(),
   ],
   external: [
     'react',
@@ -30,5 +33,6 @@ export default {
     '@k-ramel/react',
     'prop-types',
     'k-ramel',
+    'react-redux',
   ],
 }
