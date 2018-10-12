@@ -246,7 +246,7 @@ The API is quite the same, the import will change:
 import { forRoute } from '@k-redux-router/react-k-ramel'
 // or import { forRoute } from '@k-redux-router/react-redux'
 
-// this is the wrapred component (to print _or not_ based on route)
+// this is the wrapped component (to print _or not_ based on route)
 import Component from './Component'
 
 // this will print `Component` when the route identified by the `main` code is found
