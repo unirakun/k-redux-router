@@ -23,12 +23,12 @@ const routes = {
   },
 }
 
-const { init, middleware } = router(routes, { getState: state => state.ui.router })
+const { init, middleware, reducer } = router(routes, { getState: state => state.ui.router })
 
 const store = createStore(
   combineReducers({
     ui: combineReducers({
-      router: router.reducer,
+      router: reducer,
     }),
   }),
   undefined,

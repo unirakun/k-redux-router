@@ -48,6 +48,15 @@ const hoc = (code, options) => Component => class extends React.Component {
       return
     }
 
+    // The route is not found
+    // we can show the wrapped component if `notFound` is given into options
+    if (!router.isFound()) {
+      const show = (options && options.notFound)
+      this.setState(innerState => ({ ...innerState, show }))
+
+      return
+    }
+
     // Absolute mode, we are looking in top level only
     const codes = [].concat(code)
     let currentRoute = router.getCurrentRoute()
@@ -81,5 +90,6 @@ const hoc = (code, options) => Component => class extends React.Component {
 }
 
 hoc.absolute = (code, options) => hoc(code, { ...options, absolute: true })
+hoc.notFound = options => hoc(undefined, { ...options, notFound: true })
 
 export default hoc
