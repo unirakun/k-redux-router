@@ -6,7 +6,7 @@
 
 ## contents
  - [purpose](#purpose)
- - [why](#why-)
+ - [why](#why)
  - [influences](#influences)
  - [installation](#install)
  - [API](#api)
@@ -27,17 +27,17 @@ That's why we identify route by uniq `code`, and use this codes internally.
 ## why
 The lib was created to simplify our routes usages. This is done by matching an uniq `code` to a route (we never identify a route to its `href`).
 
-This lib allow us, via bindings, to use `path` params and `query` params, and `context` informations on top of that.
-`context` informations are the data you are putting in route definitions, like "is this route public" ?
+This lib allows us, via bindings, to use `path` params and `query` params, and `context` informations on top of that.
+`context` informations are the data you are putting in route definitions, like "is this route public?"
 
-So this lib aim to simplify the maintenance of your routes because:
+So this lib aims to simplify the maintenance of your routes:
  - We use uniq route `code` to identify routes, meaning that if you change related `href` your code is not impacted
  - We describe routes as nested components
  - We allow to put `context` informations into routes definition
  - `context` informations are copied from parent to children and can be overwritten, meaning that you can put a `isPublic: false` flag on a parent (and only on a parent), and all your children will have this `isPublic: false` set.
 
 ## influences
-This lib is mostly influences by [redux-little-router](https://github.com/FormidableLabs/redux-little-router) and our first hoc [hoc-little-router](https://github.com/alakarteio/hoc-little-router).
+This lib is mostly influenced by [redux-little-router](https://github.com/FormidableLabs/redux-little-router) and our first hoc [hoc-little-router](https://github.com/alakarteio/hoc-little-router).
 
 ## sizes
 | packages | size | gziped |
@@ -246,25 +246,25 @@ The API is quite the same, the import will change:
 import { forRoute } from '@k-redux-router/react-k-ramel'
 // or import { forRoute } from '@k-redux-router/react-redux'
 
-// this is the wrappred component (to print _or not_ based on route)
+// this is the wrapred component (to print _or not_ based on route)
 import Component from './Component'
 
-// this will print `Component` when the route identify by the `main` code is found
-// -> if you are in a `second` route that is a child from `main`
+// this will print `Component` when the route identified by the `main` code is found
+// -> if you are in a `second` route that is a child of `main`
 //    then Component will *NOT* be printed here
 export default forRoute.absolute('main')(Component)
 
-// this will print `Component` when the route identify by the `main` code is found
+// this will print `Component` when the route identified by the `main` code is found
 // in the tree
-// -> if you are in a `second` route that is a child from `main`
+// -> if you are in a `second` route that is a child of `main`
 //    then Component *WILL* be printed here
 export default forRoute('main')(Component)
 
 // You can use simple route codes (single string) or an array in all the previous hoc
-// Here we will print component if either `second` or `third` routes is found
+// Here we will print component if either `second` or `third` route is found
 export default forRoute.absolute(['second', 'third'])(Component)
 
-// this will print `Component` when not route is found (you can handle client 404 here)
+// this will print `Component` when no routes are found (you can handle client 404 here)
 export default forRoute.notFound()(Component)
 
 // if you don't use the default reducer location (ui.router), you can override it here (react-redux)
