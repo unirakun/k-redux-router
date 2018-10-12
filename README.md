@@ -5,16 +5,36 @@
 [![CircleCI](https://circleci.com/gh/alakarteio/k-redux-router.svg?style=shield)](https://circleci.com/gh/alakarteio/k-redux-router) [![Coverage Status](https://coveralls.io/repos/github/alakarteio/k-redux-router/badge.svg?branch=master)](https://coveralls.io/github/alakarteio/k-redux-router?branch=master) [![NPM Version](https://badge.fury.io/js/%40k-redux-router%2Fcore.svg)](https://www.npmjs.com/package/@k-redux-router/core)
 
 ## contents
- - [Purpose](#purpose) TODO:
- - [Why ?](#why) TODO:
+ - [Purpose](#purpose)
+ - [Why ?](#why)
+ - [Influences](#influences)
  - [Installation](#install)
  - [API](#api)
-   * [Definition](#routes-definitions)
-   * [Redux actions](#actions)
-   * [Redux selectors](#selectors)
-   * [Create your store](#create-your-store)
+   * [core](#core)
+      - [Definition](#routes-definitions)
+      - [Redux actions](#actions)
+      - [Redux selectors](#selectors)
+      - [Create your store](#create-your-store)
 
-# TODO: bindings doc
+## purpose
+The main purpose of the lib is to have a full redux driven history API router that is fast and easy to use.
+
+That's why we identify route by uniq `code`, and use this codes internally.
+
+## why ?
+The lib was created to simplify our routes usages. This is done by matching an uniq `code` to a route (we never identify a route to its `href`).
+
+This lib allow us, via bindings, to use `path` params and `query` params, and `context` informations on top of that.
+`context` informations are the data you are putting in route definitions, like "is this route public" ?
+
+So this lib aim to simplify the maintenance of your routes because:
+ - We use uniq route `code` to identify routes, meaning that if you change related `href` your code is not impacted
+ - We describe routes as nested components
+ - We allow to put `context` informations into routes definition
+ - `context` informations are copied from parent to children and can be overwritten, meaning that you can put a `isPublic: false` flag on a parent (and only on a parent), and all your children will have this `isPublic: false` set.
+
+## influences
+This lib is mostly influences by [redux-little-router](https://github.com/FormidableLabs/redux-little-router) and our first hoc [hoc-little-router](https://github.com/alakarteio/hoc-little-router).
 
 ## sizes
 | packages | size | gziped |
@@ -32,7 +52,8 @@
  - with **k-ramel**: `yarn add @k-redux-router/react-k-ramel`
 
 ## API
-### routes definitions
+### Core
+#### routes definitions
 ```js
 // you define your routes in a plain object
 
@@ -60,7 +81,7 @@ export default {
 }
 ```
 
-### actions
+#### actions
 ```js
 import { actions } from '@k-redux-router/core'
 
@@ -85,7 +106,7 @@ actions.goBack()
 actions.goForward()
 ```
 
-### selectors
+#### selectors
 ```js
 import { selectors } from '@k-redux-router/core'
 
@@ -148,7 +169,7 @@ decoratedSelectors.getParam('id')(state)
 
 ```
 
-### create your store
+#### create your store
 **With pure redux**
 ```js
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
@@ -208,6 +229,77 @@ export default createStore(
     },
   },
 )
+```
+
+### Bindings
+At that time we only have binding for `ReactJS` but feel free to add more if needed :)
+You can use this library with either [k-ramel] or a raw [redux] application (with react-redux).
+The API is quite the same, the import will change:
+ - **k-ramel**: `import { forRoute } from '@k-redux-router/react-k-ramel'`
+ - **react-redux**: `import { forRoute } from '@k-redux-router/react-redux'`
+
+#### connect a component to a route
+```jsx
+import { forRoute } from '@k-redux-router/react-k-ramel'
+// or import { forRoute } from '@k-redux-router/react-redux'
+
+// this is the wrappred component (to print _or not_ based on route)
+import Component from './Component'
+
+// this will print `Component` when the route identify by the `main` code is found
+// -> if you are in a `second` route that is a child from `main`
+//    then Component will *NOT* be printed here
+export default forRoute.absolute('main')(Component)
+
+// this will print `Component` when the route identify by the `main` code is found
+// in the tree
+// -> if you are in a `second` route that is a child from `main`
+//    then Component *WILL* be printed here
+export default forRoute('main')(Component)
+
+// You can use simple route codes (single string) or an array in all the previous hoc
+// Here we will print component if either `second` or `third` routes is found
+export default forRoute.absolute(['second', 'third'])(Component)
+
+// this will print `Component` when not route is found (you can handle client 404 here)
+export default forRoute.notFound()(Component)
+
+// if you don't use the default reducer location (ui.router), you can override it here (react-redux)
+export default forRoute('main', { getState: state => state.custom.location })(Component)
+```
+
+### Create links
+```jsx
+import { Link } from '@k-redux-router/react-k-ramel'
+// or import { Link } from '@k-redux-router/react-redux'
+
+export default () => (
+  <div>
+      {/* link to the `second` route */}
+      <Link
+        code="second"
+      >
+        click here
+      </Link>
+
+      {/* link to the `user` route passing its `id` in path params */}
+      <Link
+        code="user"
+        id={3}
+      >
+        user detail
+      </Link>
+
+      {/* link to the `search` route passing query params */}
+      <Link
+        code="search"
+        query={{ max: 3, name: 'Jean' }}
+      >
+        search users that are named 'Jean'
+      </Link>
+  </div>
+)
+
 ```
 
 # About ![alakarteio](http://alakarte.io/assets/img/logo.markdown.png)
