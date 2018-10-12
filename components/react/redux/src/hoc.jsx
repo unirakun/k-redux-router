@@ -14,7 +14,12 @@ const hoc = (code, options = {}) => (Component) => {
     absolute = false,
   } = options
 
-  const { getResult, getRoute, getCurrentRoute } = selectors(getState)
+  const {
+    getResult,
+    getRoute,
+    getCurrentRoute,
+    isFound,
+  } = selectors(getState)
 
   return class extends React.Component {
     static displayName = getDisplayName(Component)
@@ -54,6 +59,15 @@ const hoc = (code, options = {}) => (Component) => {
         return
       }
 
+      // The route is not found
+      // we can show the wrapped component if `notFound` is given into options
+      if (!isFound(state)) {
+        const show = (options && options.notFound)
+        this.setState(innerState => ({ ...innerState, show }))
+
+        return
+      }
+
       // Absolute mode, we are looking in top level only
       const codes = [].concat(code)
       let currentRoute = getCurrentRoute(state)
@@ -88,5 +102,6 @@ const hoc = (code, options = {}) => (Component) => {
 }
 
 hoc.absolute = (code, options) => hoc(code, { ...options, absolute: true })
+hoc.notFound = options => hoc(undefined, { ...options, notFound: true })
 
 export default hoc

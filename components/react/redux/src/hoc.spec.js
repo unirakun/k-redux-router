@@ -8,7 +8,7 @@ import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import hoc from './hoc'
 
-const matchApp = (code, multiple = false) => () => {
+const matchApp = (code, multiple = false, notFound) => () => {
   const store = createStore(
     combineReducers({
       ui: combineReducers({
@@ -29,6 +29,7 @@ const matchApp = (code, multiple = false) => () => {
             },
           },
           result: {
+            found: !notFound,
             route: {
               code,
               parent: code.split('_')[0], // either relative or absolute or undefined
@@ -41,11 +42,13 @@ const matchApp = (code, multiple = false) => () => {
 
   const RelativeDecoratedComponent = hoc(multiple ? ['relative', 'dummy'] : 'relative')(() => <div>Relative component</div>)
   const AbsoluteDecoratedComponent = hoc.absolute(multiple ? ['dummy', 'absolute'] : 'absolute')(() => <div>Absolute component</div>)
+  const NotFoundDecoratedComponent = hoc.notFound()(() => <div>Not found component</div>)
   const App = () => (
     <Provider store={store}>
       <div>
         <RelativeDecoratedComponent />
         <AbsoluteDecoratedComponent />
+        <NotFoundDecoratedComponent />
       </div>
     </Provider>
   )
@@ -66,5 +69,9 @@ describe('hoc', () => {
     it('should print relative route -child-', matchApp('relative_child', true))
     it('should print absolute route -strict equality-', matchApp('absolute', true))
     it('should not print absolute route -child-', matchApp('absolute_child', true))
+  })
+
+  describe('not found', () => {
+    it('should print the failover component when route is not found', matchApp('notFound', false, true))
   })
 })

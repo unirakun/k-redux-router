@@ -26,6 +26,14 @@ exports[`hoc array of codes should print relative route -strict equality- 1`] = 
 </div>
 `;
 
+exports[`hoc not found should print the failover component when route is not found 1`] = `
+<div>
+  <div>
+    Not found component
+  </div>
+</div>
+`;
+
 exports[`hoc uniq code (string) should not print absolute route -child- 1`] = `<div />`;
 
 exports[`hoc uniq code (string) should print absolute route -strict equality- 1`] = `
