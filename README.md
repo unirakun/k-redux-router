@@ -5,23 +5,26 @@
 [![CircleCI](https://circleci.com/gh/alakarteio/k-redux-router.svg?style=shield)](https://circleci.com/gh/alakarteio/k-redux-router) [![Coverage Status](https://coveralls.io/repos/github/alakarteio/k-redux-router/badge.svg?branch=master)](https://coveralls.io/github/alakarteio/k-redux-router?branch=master) [![NPM Version](https://badge.fury.io/js/%40k-redux-router%2Fcore.svg)](https://www.npmjs.com/package/@k-redux-router/core)
 
 ## contents
- - [Purpose](#purpose)
- - [Why ?](#why)
- - [Influences](#influences)
- - [Installation](#install)
+ - [purpose](#purpose)
+ - [why](#why-)
+ - [influences](#influences)
+ - [installation](#install)
  - [API](#api)
    * [core](#core)
-      - [Definition](#routes-definitions)
-      - [Redux actions](#actions)
-      - [Redux selectors](#selectors)
-      - [Create your store](#create-your-store)
+      - [definition](#routes-definitions)
+      - [redux actions](#actions)
+      - [redux selectors](#selectors)
+      - [create your store](#create-your-store)
+   * [bindings](#bindings)
+      - [connect a component to a route](#connect-a-component-to-a-route)
+      - [create links](#create-links)
 
 ## purpose
 The main purpose of the lib is to have a full redux driven history API router that is fast and easy to use.
 
 That's why we identify route by uniq `code`, and use this codes internally.
 
-## why ?
+## why
 The lib was created to simplify our routes usages. This is done by matching an uniq `code` to a route (we never identify a route to its `href`).
 
 This lib allow us, via bindings, to use `path` params and `query` params, and `context` informations on top of that.
@@ -52,7 +55,7 @@ This lib is mostly influences by [redux-little-router](https://github.com/Formid
  - with **k-ramel**: `yarn add @k-redux-router/react-k-ramel`
 
 ## API
-### Core
+### core
 #### routes definitions
 ```js
 // you define your routes in a plain object
@@ -170,7 +173,7 @@ decoratedSelectors.getParam('id')(state)
 ```
 
 #### create your store
-**With pure redux**
+**with pure redux**
 ```js
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
 import createRouter from '@k-redux-router/core'
@@ -231,7 +234,7 @@ export default createStore(
 )
 ```
 
-### Bindings
+### bindings
 At that time we only have binding for `ReactJS` but feel free to add more if needed :)
 You can use this library with either [k-ramel] or a raw [redux] application (with react-redux).
 The API is quite the same, the import will change:
@@ -268,7 +271,7 @@ export default forRoute.notFound()(Component)
 export default forRoute('main', { getState: state => state.custom.location })(Component)
 ```
 
-### Create links
+### create links
 ```jsx
 import { Link } from '@k-redux-router/react-k-ramel'
 // or import { Link } from '@k-redux-router/react-redux'
