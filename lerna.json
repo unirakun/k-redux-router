@@ -1,8 +1,8 @@
 {
   "lerna": "2.11.0",
   "packages": [
-    "core",
     "components/react/*",
+    "core",
     "examples/*"
   ],
   "command": {
@@ -10,5 +10,5 @@
       "exact": true
     }
   },
-  "version": "0.4.6"
+  "version": "0.5.0"
 }
