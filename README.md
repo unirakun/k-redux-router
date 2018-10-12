@@ -132,7 +132,7 @@ const state = {
   }
 }
 
-// get the route definied by the code `user`
+// get the route defined by the code `user`
 decoratedSelectors.getRoute('user')(state)
 
 // get the result, you can retrieve from here:
@@ -166,7 +166,7 @@ decoratedSelectors.getPathParam('id')(state)
 // get ONE query params by its name
 decoratedSelectors.getQueryParam('token')(state)
 
-// get ONE parm (either path param or query param)
+// get ONE param (either path param or query param)
 // - if the state param exist this is returned first
 decoratedSelectors.getParam('id')(state)
 
