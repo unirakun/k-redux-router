@@ -28,9 +28,9 @@
     "rollup-plugin-terser": "^3.0.0"
   },
   "peerDependencies": {
-    "@k-ramel/react": "^0.12.0",
-    "@k-redux-router/core": "^0.4.0",
-    "k-ramel": "^0.15.1",
+    "@k-ramel/react": "^1.0.0",
+    "@k-redux-router/core": "^1.0.0",
+    "k-ramel": "^1.0.0",
     "prop-types": "^15.6.0",
     "react": "^16.0.0"
   },
