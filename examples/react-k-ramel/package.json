@@ -1,10 +1,10 @@
 {
   "name": "example-react-k-ramel",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@k-ramel/react": "^1.0.0",
-    "@k-redux-router/react-k-ramel": "^0.5.0",
+    "@k-redux-router/react-k-ramel": "^1.0.0",
     "fbjs": "^1.0.0",
     "k-ramel": "^1.0.0",
     "path-to-regexp": "^2.2.1",
