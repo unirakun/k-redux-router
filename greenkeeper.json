@@ -1,0 +1,14 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "components/react/k-ramel/package.json",
+        "components/react/redux/package.json",
+        "core/package.json",
+        "examples/react-k-ramel/package.json",
+        "examples/react-redux/package.json",
+        "package.json"
+      ]
+    }
+  }
+}
