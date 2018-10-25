@@ -22,16 +22,16 @@
 ## purpose
 The main purpose of the lib is to have a full redux driven history API router that is fast and easy to use.
 
-That's why we identify route by uniq `code`, and use this codes internally.
+That's why we identify route by unique `code`, and use this codes internally.
 
 ## why
-The lib was created to simplify our routes usages. This is done by matching an uniq `code` to a route (we never identify a route to its `href`).
+The lib was created to simplify our routes usages. This is done by matching an unique `code` to a route (we never identify a route with its `href`).
 
 This lib allows us, via bindings, to use `path` params and `query` params, and `context` informations on top of that.
 `context` informations are the data you are putting in route definitions, like "is this route public?"
 
 So this lib aims to simplify the maintenance of your routes:
- - We use uniq route `code` to identify routes, meaning that if you change related `href` your code is not impacted
+ - We use unique route `code` to identify routes, meaning that if you change related `href` your code is not impacted
  - We describe routes as nested components
  - We allow to put `context` informations into routes definition
  - `context` informations are copied from parent to children and can be overwritten, meaning that you can put a `isPublic: false` flag on a parent (and only on a parent), and all your children will have this `isPublic: false` set.
@@ -76,7 +76,7 @@ export default {
         code: 'user',
         // public is false since parent defined it to false
         '/socials': { // url is `/users/:id/socials`
-          code: 'user-socials', // code are UNIQ !!
+          code: 'user-socials', // code are UNIQUES !!
         }
       }
     }
@@ -135,11 +135,7 @@ const state = {
 // get the route defined by the code `user`
 decoratedSelectors.getRoute('user')(state)
 
-// get the result, you can retrieve from here:
-// - the current route
-// - the paths params
-// - the query params
-// - your custom parameters
+// get the result
 decoratedSelectors.getResult(state)
 
 // the current route code
@@ -148,7 +144,7 @@ decoratedSelectors.getCurrentCode(state)
 // the current route
 decoratedSelectors.getCurrentRoute(state)
 
-// is the route found ? (404 or not)
+// is the route found? (404 or not)
 decoratedSelectors.isFound(state)
 
 // get query and path params
@@ -160,10 +156,10 @@ decoratedSelectors.getPathParams(state)
 // get all the query params
 decoratedSelectors.getQueryParams(state)
 
-// get ONE path params by its name
+// get ONE path param by its name
 decoratedSelectors.getPathParam('id')(state)
 
-// get ONE query params by its name
+// get ONE query param by its name
 decoratedSelectors.getQueryParam('token')(state)
 
 // get ONE param (either path param or query param)
@@ -177,7 +173,7 @@ decoratedSelectors.getParam('id')(state)
 ```js
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
 import createRouter from '@k-redux-router/core'
-import routes from './routes' // you previous defined routes
+import routes from './routes' // your routes defined previously 
 
 // if you want redux-devtools ;-)
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
@@ -214,7 +210,7 @@ export default store
 ```js
 import { createStore } from 'k-ramel'
 import { router } from '@k-redux-router/react-k-ramel'
-import routes from './routes' // you previous defined routes
+import routes from './routes' // your routes defined previously
 
 // create the redux store
 export default createStore(
@@ -223,7 +219,7 @@ export default createStore(
   },
   {
     drivers: {
-      // 1. add the driver (its name should be router)
+      // 1. add the driver (its name should be 'router')
       router: router({
         routes, // 2. bind your routes
         state: 'path.to.router' // 3. the path to the state (default is `ui.router`)
@@ -236,7 +232,7 @@ export default createStore(
 
 ### bindings
 At that time we only have binding for `ReactJS` but feel free to add more if needed :)
-You can use this library with either [k-ramel] or a raw [redux] application (with react-redux).
+You can use this library with either [k-ramel](https://github.com/alakarteio/k-ramel) or a raw [redux](https://github.com/reduxjs/redux) application (with [react-redux](https://github.com/reduxjs/react-redux)).
 The API is quite the same, the import will change:
  - **k-ramel**: `import { forRoute } from '@k-redux-router/react-k-ramel'`
  - **react-redux**: `import { forRoute } from '@k-redux-router/react-redux'`
@@ -308,7 +304,7 @@ export default () => (
 # About ![alakarteio](http://alakarte.io/assets/img/logo.markdown.png)
 **alakarteio** is created by two passionate french developers.
 
-Do you want to contact them ? Go to their [website](http://alakarte.io)
+Do you want to contact them? Go to their [website](http://alakarte.io)
 
 <table border="0">
  <tr>
