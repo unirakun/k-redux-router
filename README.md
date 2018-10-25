@@ -135,11 +135,7 @@ const state = {
 // get the route defined by the code `user`
 decoratedSelectors.getRoute('user')(state)
 
-// get the result, you can retrieve it from:
-// - the current route
-// - the paths params
-// - the query params
-// - your custom parameters
+// get the result
 decoratedSelectors.getResult(state)
 
 // the current route code
