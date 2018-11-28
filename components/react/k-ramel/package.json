@@ -1,6 +1,6 @@
 {
   "name": "@k-redux-router/react-k-ramel",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React components (binded to redux store with k-ramel)",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
