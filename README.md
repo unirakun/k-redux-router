@@ -48,7 +48,7 @@ This lib is mostly influenced by [redux-little-router](https://github.com/Formid
 
 ## install
 ### redux reducer, middleware, actions and selectors
-`yarn add @k-redux-router/core`
+`yarn add @k-redux-router/core path-to-regexp`
 
 ### binding to ReactJS (there is no other binder at the moment)
  - with **react-redux**: `yarn add @k-redux-router/react-redux`
@@ -173,7 +173,7 @@ decoratedSelectors.getParam('id')(state)
 ```js
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
 import createRouter from '@k-redux-router/core'
-import routes from './routes' // your routes defined previously 
+import routes from './routes' // your routes defined previously
 
 // if you want redux-devtools ;-)
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
