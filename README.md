@@ -162,8 +162,10 @@ decoratedSelectors.getPathParam('id')(state)
 // get ONE query param by its name
 decoratedSelectors.getQueryParam('token')(state)
 
-// get ONE param (either path param or query param)
-// - if the state param exist this is returned first
+// get ONE param (either result param, path param or query param)
+// - if the result param exists, this is returned first
+// - then if the state param exists this is returned second
+// - query param comes at last
 decoratedSelectors.getParam('id')(state)
 
 ```
