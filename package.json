@@ -43,7 +43,7 @@
     "path-to-regexp": "^2.4.0",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
-    "react-redux": "^5.0.7",
+    "react-redux": "^6.0.1",
     "redux": "^4.0.1"
   },
   "eslintConfig": {
