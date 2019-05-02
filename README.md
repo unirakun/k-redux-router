@@ -174,7 +174,7 @@ decoratedSelectors.getParam('id')(state)
 **with pure redux**
 ```js
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
-import createRouter from '@k-redux-router/core'
+import { router } from '@k-redux-router/core'
 import routes from './routes' // your routes defined previously
 
 // if you want redux-devtools ;-)
