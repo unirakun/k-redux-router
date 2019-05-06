@@ -10,12 +10,19 @@ const isNotLeftClick = e => e.button && e.button !== LEFT_MOUSE_BUTTON
 const hasModifier = e => !!(e.shiftKey || e.altKey || e.metaKey || e.ctrlKey)
 const shouldIgnoreClick = e => hasModifier(e) || isNotLeftClick(e) || e.defaultPrevented
 
-// TODO: hardcoded path (state.ui)
-const { getRoute } = selectors(state => state.ui.router)
+const mapState = (
+  state,
+  {
+    code,
+    getState = currentState => currentState.ui.router,
+  },
+) => {
+  const { getRoute } = selectors(getState)
 
-const mapState = (state, { code }) => ({
-  href: getRoute(code)(state).href,
-})
+  return {
+    href: getRoute(code)(state).href,
+  }
+}
 
 const mapDispatch = (
   dispatch,
