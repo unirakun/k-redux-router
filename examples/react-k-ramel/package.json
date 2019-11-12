@@ -7,7 +7,7 @@
     "@k-redux-router/react-k-ramel": "^1.2.0",
     "fbjs": "^1.0.0",
     "k-ramel": "^2.1.0",
-    "path-to-regexp": "^3.0.0",
+    "path-to-regexp": "^4.0.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
