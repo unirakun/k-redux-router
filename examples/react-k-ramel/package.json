@@ -3,7 +3,7 @@
   "version": "1.2.0",
   "private": true,
   "dependencies": {
-    "@k-ramel/react": "^2.1.0",
+    "@k-ramel/react": "^3.0.0",
     "@k-redux-router/react-k-ramel": "^1.2.0",
     "fbjs": "^1.0.0",
     "k-ramel": "^2.1.0",
