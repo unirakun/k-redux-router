@@ -1,4 +1,4 @@
-import pathToRegexp from 'path-to-regexp'
+import { pathToRegexp, parse, compile } from 'path-to-regexp'
 import isRoute from './isRoute'
 
 export default (routes) => {
@@ -28,9 +28,9 @@ export default (routes) => {
           parent: parent && parent.code,
           href: {
             base,
-            compiled: (base.includes(':') ? pathToRegexp.compile(base) : undefined),
+            compiled: (base.includes(':') ? compile(base) : undefined),
             regexp: pathToRegexp(base),
-            parsed: pathToRegexp.parse(base),
+            parsed: parse(base),
           },
         },
       )
