@@ -21,7 +21,7 @@ const hoc = (code, options) => Component => class extends React.Component {
     this.state = { show: false }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { store } = this.context
 
     // subscribe

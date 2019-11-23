@@ -34,7 +34,7 @@ const hoc = (code, options = {}) => (Component) => {
       this.state = { show: false }
     }
 
-    componentWillMount() {
+    componentDidMount() {
       const { store } = this.context
       // subscribe
       this.unsubscribe = store.subscribe(() => {
