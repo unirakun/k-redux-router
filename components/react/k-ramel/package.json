@@ -30,7 +30,7 @@
   "peerDependencies": {
     "@k-ramel/react": "^1.0.0",
     "@k-redux-router/core": "^1.0.0",
-    "k-ramel": "^1.0.0",
+    "k-ramel": "^3.0.1",
     "prop-types": "^15.6.0",
     "react": "^16.0.0"
   },
