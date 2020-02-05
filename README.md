@@ -2,7 +2,7 @@
 
 > redux router (with bindings) / one route = one code
 
-[![CircleCI](https://circleci.com/gh/alakarteio/k-redux-router.svg?style=shield)](https://circleci.com/gh/alakarteio/k-redux-router) [![Coverage Status](https://coveralls.io/repos/github/alakarteio/k-redux-router/badge.svg?branch=master)](https://coveralls.io/github/alakarteio/k-redux-router?branch=master) [![NPM Version](https://badge.fury.io/js/%40k-redux-router%2Fcore.svg)](https://www.npmjs.com/package/@k-redux-router/core) [![Greenkeeper badge](https://badges.greenkeeper.io/alakarteio/k-redux-router.svg)](https://greenkeeper.io/)
+[![CircleCI](https://circleci.com/gh/unirakun/k-redux-router.svg?style=shield)](https://circleci.com/gh/unirakun/k-redux-router) [![Coverage Status](https://coveralls.io/repos/github/unirakun/k-redux-router/badge.svg?branch=master)](https://coveralls.io/github/unirakun/k-redux-router?branch=master) [![NPM Version](https://badge.fury.io/js/%40k-redux-router%2Fcore.svg)](https://www.npmjs.com/package/@k-redux-router/core) [![Greenkeeper badge](https://badges.greenkeeper.io/unirakun/k-redux-router.svg)](https://greenkeeper.io/)
 
 ## contents
  - [purpose](#purpose)
@@ -303,10 +303,10 @@ export default () => (
 
 ```
 
-# About ![alakarteio](http://alakarte.io/assets/img/logo.markdown.png)
-**alakarteio** is created by two passionate french developers.
+# About uni rakun
+**uni rakun** is created by two passionate french developers.
 
-Do you want to contact them? Go to their [website](http://alakarte.io)
+Do you want to contact them? Go to their [website](https://unirakun.fr)
 
 <table border="0">
  <tr>
