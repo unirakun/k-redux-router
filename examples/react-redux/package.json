@@ -5,7 +5,7 @@
   "dependencies": {
     "@k-redux-router/react-redux": "^1.2.0",
     "path-to-regexp": "^3.0.0",
-    "react": "^16.8.6",
+    "react": "^16.13.1",
     "react-dom": "^16.8.6",
     "react-redux": "^5.0.7",
     "react-scripts": "3.0.1",
