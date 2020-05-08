@@ -14,7 +14,7 @@
     "path-to-regexp": "^2.2.1"
   },
   "devDependencies": {
-    "microbundle": "^0.11.0"
+    "microbundle": "^0.12.0"
   },
   "publishConfig": {
     "access": "public",
